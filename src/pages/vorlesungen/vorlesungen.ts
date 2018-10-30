@@ -3,15 +3,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-page2',
-  templateUrl: 'page2.html'
+  selector: 'page-vorlesungen',
+  templateUrl: 'vorlesungen.html'
 })
-export class Page2 {
+export class VorlesungenPage {
   selectedItem: any;
   icons: string[];
   items: Array<{ title: string, note: string, icon: string }>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 

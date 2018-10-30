@@ -3,12 +3,14 @@ import { IonicPage, NavController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-page1',
-  templateUrl: 'page1.html'
+  selector: 'page-events',
+  templateUrl: 'events.html'
 })
-export class Page1 {
+export class EventsPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController
+  ) {
 
   }
 
