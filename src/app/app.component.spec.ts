@@ -1,67 +1,45 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
+import { IonicModule, Platform } from 'ionic-angular';
 
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { RouterTestingModule } from '@angular/router/testing';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { AppComponent } from './app.component';
+import { MyApp } from './app.component';
+import {
+  PlatformMock,
+  StatusBarMock,
+  SplashScreenMock
+} from '../../test-config/mocks-ionic';
 
-describe('AppComponent', () => {
-
-  let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
+describe('MyApp Component', () => {
+  let fixture;
+  let component;
 
   beforeEach(async(() => {
-    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
-    splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
-    platformReadySpy = Promise.resolve();
-    platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
-
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: StatusBar, useValue: statusBarSpy },
-        { provide: SplashScreen, useValue: splashScreenSpy },
-        { provide: Platform, useValue: platformSpy },
+      declarations: [MyApp],
+      imports: [
+        IonicModule.forRoot(MyApp)
       ],
-      imports: [ RouterTestingModule.withRoutes([])],
-    }).compileComponents();
+      providers: [
+        { provide: StatusBar, useClass: StatusBarMock },
+        { provide: SplashScreen, useClass: SplashScreenMock },
+        { provide: Platform, useClass: PlatformMock }
+      ]
+    })
   }));
 
-  it('should create the app', async () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MyApp);
+    component = fixture.componentInstance;
   });
 
-  it('should initialize the app', async () => {
-    TestBed.createComponent(AppComponent);
-    expect(platformSpy.ready).toHaveBeenCalled();
-    await platformReadySpy;
-    expect(statusBarSpy.styleDefault).toHaveBeenCalled();
-    expect(splashScreenSpy.hide).toHaveBeenCalled();
+  it('should be created', () => {
+    expect(component instanceof MyApp).toBe(true);
   });
 
-  it('should have menu labels', async () => {
-    const fixture = await TestBed.createComponent(AppComponent);
-    await fixture.detectChanges();
-    const app = fixture.nativeElement;
-    const menuItems = app.querySelectorAll('ion-label');
-    expect(menuItems.length).toEqual(2);
-    expect(menuItems[0].textContent).toContain('Home');
-    expect(menuItems[1].textContent).toContain('List');
-  });
-
-  it('should have urls', async () => {
-    const fixture = await TestBed.createComponent(AppComponent);
-    await fixture.detectChanges();
-    const app = fixture.nativeElement;
-    const menuItems = app.querySelectorAll('ion-item');
-    expect(menuItems.length).toEqual(2);
-    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/home');
-    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/list');
+  it('should have two pages', () => {
+    expect(component.pages.length).toBe(2);
   });
 
 });
