@@ -1,10 +1,15 @@
 <a href="/../../"> &larr; Back to the Main Page</a>
-# Getting Started
-## Requirements
+***
+# Requirements
 Here is a list of all requirements you need 
 ### 1. Install Node
+You can download NodeJS with NPM right <a href="https://nodejs.org/en/">here</a>
  
 ### 2. Install Ionic
+After you installed NodeJS with NPM you can simply install the Ionic package with:
+```shell
+  $ npm install -g ionic
+```
  
 ### 3. Install Test Packages
  In order to run unit and end-to-end test for Ionic, you need to install Karma, Jasmine and Protractor for Node. Here is a simple command to install all of these in one step
@@ -12,11 +17,14 @@ Here is a list of all requirements you need
   $ npm install --save-dev angular2-template-loader html-loader jasmine jasmine-spec-reporter karma karma-chrome-launcher karma-jasmine karma-jasmine-html-reporter karma-sourcemap-loader karma-webpack karma-coverage-istanbul-reporter istanbul-instrumenter-loader null-loader protractor ts-loader ts-node @types/jasmine @types/node
 
  ```
-## Collaborating
+***
+# Collaborating
 ### Serving the APP
 ```shell
   $ ionic serve
 ```
+
+
 ### Running tests
 **Unit Tests:**
 ```shell
