@@ -22,7 +22,8 @@ Here is a list of all requirements you need
 ```shell
   $ npm run test
 ```
-<br/>
+
+
 **E2E Tests:**
 ```shell
   $ npm run e2e
