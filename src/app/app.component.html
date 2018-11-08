@@ -1,0 +1,51 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu>
+      <ion-header>
+        <ion-toolbar color="dark">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <img src="../assets/dhbw_logo.png"/>
+        <ion-list class="internal">
+
+          <!-- app pages -->
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list class="external">
+          <!-- external pages -->
+          <ion-menu-toggle  auto-hide="false" *ngFor="let p of externalPages">
+            <a [href]="p.externalUrl">
+              <ion-item>
+                <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                <ion-label>
+                  {{p.title}}
+                </ion-label>
+              </ion-item>
+            </a>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-menu-toggle class="settings" auto-hide="false">
+            <ion-item>
+              <ion-icon slot="start" name="settings"></ion-icon>
+              <ion-label>
+                Settings
+              </ion-label>
+            </ion-item>
+        </ion-menu-toggle>
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

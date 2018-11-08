@@ -1,52 +1,67 @@
-import { async, TestBed }         from '@angular/core/testing';
-import { By }                     from '@angular/platform-browser';
-import { IonicModule, Platform }  from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { TestBed, async } from '@angular/core/testing';
 
-import { StatusBar }              from '@ionic-native/status-bar';
-import { SplashScreen }           from '@ionic-native/splash-screen';
+import { Platform } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { MyApp }                  from './app.component';
-import {
-  PlatformMock,
-  StatusBarMock,
-  SplashScreenMock
-}                                 from '../../test-config/mocks-ionic';
+import { AppComponent } from './app.component';
 
-describe('MyApp Component', () => {
-  let fixture;
-  let component;
-  let titleElement;
+describe('AppComponent', () => {
+
+  let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
 
   beforeEach(async(() => {
+    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
+    splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
+    platformReadySpy = Promise.resolve();
+    platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
+
     TestBed.configureTestingModule({
-      declarations: [MyApp],
-      imports: [
-        IonicModule.forRoot(MyApp)
-      ],
+      declarations: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
-        { provide: StatusBar, useClass: StatusBarMock },
-        { provide: SplashScreen, useClass: SplashScreenMock },
-        { provide: Platform, useClass: PlatformMock }
-      ]
-    })
+        { provide: StatusBar, useValue: statusBarSpy },
+        { provide: SplashScreen, useValue: splashScreenSpy },
+        { provide: Platform, useValue: platformSpy },
+      ],
+      imports: [ RouterTestingModule.withRoutes([])],
+    }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MyApp);
-    component = fixture.componentInstance;
-    titleElement = fixture.debugElement.query(By.css('ion-title'));
+  it('should create the app', async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
   });
 
-  it('should be created', () => {
-    expect(component instanceof MyApp).toBe(true);
+  it('should initialize the app', async () => {
+    TestBed.createComponent(AppComponent);
+    expect(platformSpy.ready).toHaveBeenCalled();
+    await platformReadySpy;
+    expect(statusBarSpy.styleDefault).toHaveBeenCalled();
+    expect(splashScreenSpy.hide).toHaveBeenCalled();
   });
 
-  it('should have title "STUV Survival"', () => {
-    const title = titleElement.nativeElement;
-    expect(title.innerText).toMatch("Menu");
+  it('should have menu labels', async () => {
+    const fixture = await TestBed.createComponent(AppComponent);
+    await fixture.detectChanges();
+    const app = fixture.nativeElement;
+    const menuItems = app.querySelectorAll('ion-label');
+    expect(menuItems.length).toEqual(2);
+    expect(menuItems[0].textContent).toContain('Lectures');
+    expect(menuItems[1].textContent).toContain('Events');
   });
 
-  it('should have two pages', () => {
-    expect(component.pages.length).toBe(2);
+  it('should have urls', async () => {
+    const fixture = await TestBed.createComponent(AppComponent);
+    await fixture.detectChanges();
+    const app = fixture.nativeElement;
+    const menuItems = app.querySelectorAll('ion-item');
+    expect(menuItems.length).toEqual(2);
+    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/lectures');
+    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/events');
   });
+
 });

@@ -1,0 +1,31 @@
+$colors: (
+  primary:    #488aff,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       red
+);
+
+img{
+  width: 70%;
+  display: block;
+  margin: 0px auto;
+  padding: 20px 0px 50px;
+}
+ion-list.external{
+  padding-top: 30px;
+}
+
+ion-menu-toggle.settings ion-item{
+  position: absolute;
+  bottom: 0px;
+}
+
+/* DHBW Theming */
+ion-menu ion-content{
+  background-color:red !important;
+}
+
+.test{
+  background: red !important;
+}
