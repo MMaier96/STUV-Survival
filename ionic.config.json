@@ -4,5 +4,11 @@
     "cordova": {}
   },
   "type": "angular",
-  "pro_id": "8b5f4e77"
+  "pro_id": "8b5f4e77",
+  "proxies": [
+    {
+      "path": "/lectures",
+      "proxyUrl": "http://ics.mosbach.dhbw.de/ics/calendars.list"
+    }
+  ]
 }
