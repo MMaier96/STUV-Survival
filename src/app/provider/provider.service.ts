@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ProviderService {
     baseUrl: string;
+    classes;
     res = `BW-FS18;http://ics.mosbach.dhbw.de/ics/bw-fs18.ics
 IN15A;http://ics.mosbach.dhbw.de/ics/in15a.ics
 BW-PMH18A;http://ics.mosbach.dhbw.de/ics/bw-pmh18a.ics
@@ -198,15 +199,15 @@ HD16A;http://ics.mosbach.dhbw.de/ics/hd16a.ics`;
 
     getRawData() {
       //var res = this.http.get(this.baseUrl);
-      this.res = this.res.split(".ics").join(".ics;").split(";");
-      this.res = this.res.filter(function(value, index, Arr) {
+      this.classes = this.res.split(".ics").join(".ics;").split(";");
+      this.classes = this.classes.filter(function(value, index, Arr) {
           return index % 2 == 0;
       });
-      for(var x = 1; x < this.res.length;x++){
-        this.res[x] = this.res[x].substr(1);
+      for(var x = 1; x < this.classes.length;x++){
+        this.classes[x] = this.classes[x].substr(1);
       }
-      this.res.splice(-1,1);
-      this.res.sort();
-      return this.res;
+      this.classes.splice(-1,1);
+      this.classes.sort();
+      return this.classes;
     }
 }
