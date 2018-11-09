@@ -9,11 +9,11 @@ import { ProviderService } from '../provider/provider.service';
 
 export class LecturesPage {
 
+  classes;
+
   constructor(
     public service:ProviderService
   ){
-    service.getRawData().subscribe( data => { 
-      console.log(data)
-    })
+    this.classes = service.getRawData();
   }
 }

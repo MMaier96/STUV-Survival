@@ -5,14 +5,208 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ProviderService {
     baseUrl: string;
+    res = `BW-FS18;http://ics.mosbach.dhbw.de/ics/bw-fs18.ics
+IN15A;http://ics.mosbach.dhbw.de/ics/in15a.ics
+BW-PMH18A;http://ics.mosbach.dhbw.de/ics/bw-pmh18a.ics
+MT17A;http://ics.mosbach.dhbw.de/ics/mt17a.ics
+WI16C;http://ics.mosbach.dhbw.de/ics/wi16c.ics
+BW-PM16D;http://ics.mosbach.dhbw.de/ics/bw-pm16d.ics
+INF18A;http://ics.mosbach.dhbw.de/ics/inf18a.ics
+BW-PM15D;http://ics.mosbach.dhbw.de/ics/bw-pm15d.ics
+BW-PM16C;http://ics.mosbach.dhbw.de/ics/bw-pm16c.ics
+HD17D;http://ics.mosbach.dhbw.de/ics/hd17d.ics
+BK15A;http://ics.mosbach.dhbw.de/ics/bk15a.ics
+BK17A;http://ics.mosbach.dhbw.de/ics/bk17a.ics
+WIW-ITP17;http://ics.mosbach.dhbw.de/ics/wiw-itp17.ics
+WIW-ITP16;http://ics.mosbach.dhbw.de/ics/wiw-itp16.ics
+ET16A;http://ics.mosbach.dhbw.de/ics/et16a.ics
+BW-PM17C;http://ics.mosbach.dhbw.de/ics/bw-pm17c.ics
+MB-KE18C;http://ics.mosbach.dhbw.de/ics/mb-ke18c.ics
+HT15;http://ics.mosbach.dhbw.de/ics/ht15.ics
+IN18B;http://ics.mosbach.dhbw.de/ics/in18b.ics
+MT16B;http://ics.mosbach.dhbw.de/ics/mt16b.ics
+BSTUF16;http://ics.mosbach.dhbw.de/ics/bstuf16.ics
+INF15B;http://ics.mosbach.dhbw.de/ics/inf15b.ics
+BW-OEB18;http://ics.mosbach.dhbw.de/ics/bw-oeb18.ics
+WI16B;http://ics.mosbach.dhbw.de/ics/wi16b.ics
+WI17B;http://ics.mosbach.dhbw.de/ics/wi17b.ics
+WIW-ITV15;http://ics.mosbach.dhbw.de/ics/wiw-itv15.ics
+IPB16;http://ics.mosbach.dhbw.de/ics/ipb16.ics
+MB-VE16;http://ics.mosbach.dhbw.de/ics/mb-ve16.ics
+WI16R;http://ics.mosbach.dhbw.de/ics/wi16r.ics
+ET18B;http://ics.mosbach.dhbw.de/ics/et18b.ics
+WIW-ITP18;http://ics.mosbach.dhbw.de/ics/wiw-itp18.ics
+MB-VE18;http://ics.mosbach.dhbw.de/ics/mb-ve18.ics
+MB-KE16C;http://ics.mosbach.dhbw.de/ics/mb-ke16c.ics
+ON18B;http://ics.mosbach.dhbw.de/ics/on18b.ics
+MT-EM16;http://ics.mosbach.dhbw.de/ics/mt-em16.ics
+BK18A;http://ics.mosbach.dhbw.de/ics/bk18a.ics
+MB-VT17;http://ics.mosbach.dhbw.de/ics/mb-vt17.ics
+IN18C;http://ics.mosbach.dhbw.de/ics/in18c.ics
+MT17B;http://ics.mosbach.dhbw.de/ics/mt17b.ics
+IN15B;http://ics.mosbach.dhbw.de/ics/in15b.ics
+BW-PM16B2;http://ics.mosbach.dhbw.de/ics/bw-pm16b2.ics
+WI16A;http://ics.mosbach.dhbw.de/ics/wi16a.ics
+HD15C;http://ics.mosbach.dhbw.de/ics/hd15c.ics
+BSTUF18;http://ics.mosbach.dhbw.de/ics/bstuf18.ics
+MT-EM15;http://ics.mosbach.dhbw.de/ics/mt-em15.ics
+BW-PM15B1;http://ics.mosbach.dhbw.de/ics/bw-pm15b1.ics
+BK16A;http://ics.mosbach.dhbw.de/ics/bk16a.ics
+MB-KE16A;http://ics.mosbach.dhbw.de/ics/mb-ke16a.ics
+WI18C;http://ics.mosbach.dhbw.de/ics/wi18c.ics
+MT15B;http://ics.mosbach.dhbw.de/ics/mt15b.ics
+BK15B;http://ics.mosbach.dhbw.de/ics/bk15b.ics
+BK18;http://ics.mosbach.dhbw.de/ics/bk18.ics
+HD15B;http://ics.mosbach.dhbw.de/ics/hd15b.ics
+WIW-IPL18;http://ics.mosbach.dhbw.de/ics/wiw-ipl18.ics
+BK16;http://ics.mosbach.dhbw.de/ics/bk16.ics
+MT15A;http://ics.mosbach.dhbw.de/ics/mt15a.ics
+HD18A;http://ics.mosbach.dhbw.de/ics/hd18a.ics
+HT16;http://ics.mosbach.dhbw.de/ics/ht16.ics
+IN17C;http://ics.mosbach.dhbw.de/ics/in17c.ics
+WI16U;http://ics.mosbach.dhbw.de/ics/wi16u.ics
+MB-KT18;http://ics.mosbach.dhbw.de/ics/mb-kt18.ics
+ON16B;http://ics.mosbach.dhbw.de/ics/on16b.ics
+IN16A;http://ics.mosbach.dhbw.de/ics/in16a.ics
+ON17A;http://ics.mosbach.dhbw.de/ics/on17a.ics
+BSTUF17;http://ics.mosbach.dhbw.de/ics/bstuf17.ics
+HD16B;http://ics.mosbach.dhbw.de/ics/hd16b.ics
+MB-VE17;http://ics.mosbach.dhbw.de/ics/mb-ve17.ics
+HD17F;http://ics.mosbach.dhbw.de/ics/hd17f.ics
+ON18A;http://ics.mosbach.dhbw.de/ics/on18a.ics
+BW-FS17;http://ics.mosbach.dhbw.de/ics/bw-fs17.ics
+ET16B;http://ics.mosbach.dhbw.de/ics/et16b.ics
+WIW-IPL16;http://ics.mosbach.dhbw.de/ics/wiw-ipl16.ics
+WI15U;http://ics.mosbach.dhbw.de/ics/wi15u.ics
+ET15B;http://ics.mosbach.dhbw.de/ics/et15b.ics
+MB-VT15;http://ics.mosbach.dhbw.de/ics/mb-vt15.ics
+IPB19S;http://ics.mosbach.dhbw.de/ics/ipb19s.ics
+HD17C;http://ics.mosbach.dhbw.de/ics/hd17c.ics
+BW-PM15B;http://ics.mosbach.dhbw.de/ics/bw-pm15b.ics
+MT18B;http://ics.mosbach.dhbw.de/ics/mt18b.ics
+WIW-ITP15;http://ics.mosbach.dhbw.de/ics/wiw-itp15.ics
+MB-VT18;http://ics.mosbach.dhbw.de/ics/mb-vt18.ics
+HD17E;http://ics.mosbach.dhbw.de/ics/hd17e.ics
+MB-KE17A;http://ics.mosbach.dhbw.de/ics/mb-ke17a.ics
+ON17B;http://ics.mosbach.dhbw.de/ics/on17b.ics
+HD18E;http://ics.mosbach.dhbw.de/ics/hd18e.ics
+INF15A;http://ics.mosbach.dhbw.de/ics/inf15a.ics
+ET17A;http://ics.mosbach.dhbw.de/ics/et17a.ics
+BW-PM17D;http://ics.mosbach.dhbw.de/ics/bw-pm17d.ics
+WI18B;http://ics.mosbach.dhbw.de/ics/wi18b.ics
+HD18C;http://ics.mosbach.dhbw.de/ics/hd18c.ics
+HH16;http://ics.mosbach.dhbw.de/ics/hh16.ics
+HH18;http://ics.mosbach.dhbw.de/ics/hh18.ics
+HD16D;http://ics.mosbach.dhbw.de/ics/hd16d.ics
+HH15;http://ics.mosbach.dhbw.de/ics/hh15.ics
+MB-VE15;http://ics.mosbach.dhbw.de/ics/mb-ve15.ics
+BW-PM15C;http://ics.mosbach.dhbw.de/ics/bw-pm15c.ics
+HD17A;http://ics.mosbach.dhbw.de/ics/hd17a.ics
+BW-PM16B;http://ics.mosbach.dhbw.de/ics/bw-pm16b.ics
+BW-PM15A;http://ics.mosbach.dhbw.de/ics/bw-pm15a.ics
+INF17A;http://ics.mosbach.dhbw.de/ics/inf17a.ics
+BW-PMT18B;http://ics.mosbach.dhbw.de/ics/bw-pmt18b.ics
+HD15F;http://ics.mosbach.dhbw.de/ics/hd15f.ics
+BW-FS15;http://ics.mosbach.dhbw.de/ics/bw-fs15.ics
+HD15E;http://ics.mosbach.dhbw.de/ics/hd15e.ics
+HD17B;http://ics.mosbach.dhbw.de/ics/hd17b.ics
+MB-VT16;http://ics.mosbach.dhbw.de/ics/mb-vt16.ics
+BW-FS16;http://ics.mosbach.dhbw.de/ics/bw-fs16.ics
+MB-KE17D;http://ics.mosbach.dhbw.de/ics/mb-ke17d.ics
+ET18A;http://ics.mosbach.dhbw.de/ics/et18a.ics
+IPB17S;http://ics.mosbach.dhbw.de/ics/ipb17s.ics
+WI15S;http://ics.mosbach.dhbw.de/ics/wi15s.ics
+HDXXB;http://ics.mosbach.dhbw.de/ics/hdxxb.ics
+HD18D;http://ics.mosbach.dhbw.de/ics/hd18d.ics
+WI15R;http://ics.mosbach.dhbw.de/ics/wi15r.ics
+INF18B;http://ics.mosbach.dhbw.de/ics/inf18b.ics
+MB-KE15C;http://ics.mosbach.dhbw.de/ics/mb-ke15c.ics
+HD18B;http://ics.mosbach.dhbw.de/ics/hd18b.ics
+IPB18S;http://ics.mosbach.dhbw.de/ics/ipb18s.ics
+MB-KE17C;http://ics.mosbach.dhbw.de/ics/mb-ke17c.ics
+IN18A;http://ics.mosbach.dhbw.de/ics/in18a.ics
+BW-PM16A;http://ics.mosbach.dhbw.de/ics/bw-pm16a.ics
+WIW-ITV16;http://ics.mosbach.dhbw.de/ics/wiw-itv16.ics
+WIW-IPL15;http://ics.mosbach.dhbw.de/ics/wiw-ipl15.ics
+MB-KE17B;http://ics.mosbach.dhbw.de/ics/mb-ke17b.ics
+HD18F;http://ics.mosbach.dhbw.de/ics/hd18f.ics
+MB-KE16D;http://ics.mosbach.dhbw.de/ics/mb-ke16d.ics
+MB-KE15D;http://ics.mosbach.dhbw.de/ics/mb-ke15d.ics
+BW-PMT18A;http://ics.mosbach.dhbw.de/ics/bw-pmt18a.ics
+BK16B;http://ics.mosbach.dhbw.de/ics/bk16b.ics
+MB-KT15;http://ics.mosbach.dhbw.de/ics/mb-kt15.ics
+WIW-ITV18;http://ics.mosbach.dhbw.de/ics/wiw-itv18.ics
+BSTUF15;http://ics.mosbach.dhbw.de/ics/bstuf15.ics
+WI15T;http://ics.mosbach.dhbw.de/ics/wi15t.ics
+WI16T;http://ics.mosbach.dhbw.de/ics/wi16t.ics
+IN17A;http://ics.mosbach.dhbw.de/ics/in17a.ics
+ET17B;http://ics.mosbach.dhbw.de/ics/et17b.ics
+INF16A;http://ics.mosbach.dhbw.de/ics/inf16a.ics
+WI17A;http://ics.mosbach.dhbw.de/ics/wi17a.ics
+ON16A;http://ics.mosbach.dhbw.de/ics/on16a.ics
+WI18A;http://ics.mosbach.dhbw.de/ics/wi18a.ics
+WI17D;http://ics.mosbach.dhbw.de/ics/wi17d.ics
+MB-KE18B;http://ics.mosbach.dhbw.de/ics/mb-ke18b.ics
+WIW-ITV17;http://ics.mosbach.dhbw.de/ics/wiw-itv17.ics
+BW-PMH18B;http://ics.mosbach.dhbw.de/ics/bw-pmh18b.ics
+MB-KT17;http://ics.mosbach.dhbw.de/ics/mb-kt17.ics
+HD16E;http://ics.mosbach.dhbw.de/ics/hd16e.ics
+BW-PM16B1;http://ics.mosbach.dhbw.de/ics/bw-pm16b1.ics
+BW-PM17A;http://ics.mosbach.dhbw.de/ics/bw-pm17a.ics
+WI18D;http://ics.mosbach.dhbw.de/ics/wi18d.ics
+WI16S;http://ics.mosbach.dhbw.de/ics/wi16s.ics
+MT18A;http://ics.mosbach.dhbw.de/ics/mt18a.ics
+MB-KE18A;http://ics.mosbach.dhbw.de/ics/mb-ke18a.ics
+IPE15;http://ics.mosbach.dhbw.de/ics/ipe15.ics
+MB-KT16;http://ics.mosbach.dhbw.de/ics/mb-kt16.ics
+WI17C;http://ics.mosbach.dhbw.de/ics/wi17c.ics
+MB-KE15A;http://ics.mosbach.dhbw.de/ics/mb-ke15a.ics
+BW-OEB17;http://ics.mosbach.dhbw.de/ics/bw-oeb17.ics
+HH17;http://ics.mosbach.dhbw.de/ics/hh17.ics
+IPB17F;http://ics.mosbach.dhbw.de/ics/ipb17f.ics
+IPB18F;http://ics.mosbach.dhbw.de/ics/ipb18f.ics
+MT16A;http://ics.mosbach.dhbw.de/ics/mt16a.ics
+ON15A;http://ics.mosbach.dhbw.de/ics/on15a.ics
+BW-PM15B2;http://ics.mosbach.dhbw.de/ics/bw-pm15b2.ics
+MB-KE15B;http://ics.mosbach.dhbw.de/ics/mb-ke15b.ics
+HT18;http://ics.mosbach.dhbw.de/ics/ht18.ics
+HD16F;http://ics.mosbach.dhbw.de/ics/hd16f.ics
+HD15A;http://ics.mosbach.dhbw.de/ics/hd15a.ics
+HD15D;http://ics.mosbach.dhbw.de/ics/hd15d.ics
+ET15A;http://ics.mosbach.dhbw.de/ics/et15a.ics
+ON15B;http://ics.mosbach.dhbw.de/ics/on15b.ics
+INF16B;http://ics.mosbach.dhbw.de/ics/inf16b.ics
+IN15C;http://ics.mosbach.dhbw.de/ics/in15c.ics
+IN16C;http://ics.mosbach.dhbw.de/ics/in16c.ics
+BW-PM17B;http://ics.mosbach.dhbw.de/ics/bw-pm17b.ics
+BK17B;http://ics.mosbach.dhbw.de/ics/bk17b.ics
+MB-KE16B;http://ics.mosbach.dhbw.de/ics/mb-ke16b.ics
+HDXXF;http://ics.mosbach.dhbw.de/ics/hdxxf.ics
+IN17B;http://ics.mosbach.dhbw.de/ics/in17b.ics
+HD16C;http://ics.mosbach.dhbw.de/ics/hd16c.ics
+HT17;http://ics.mosbach.dhbw.de/ics/ht17.ics
+INF17B;http://ics.mosbach.dhbw.de/ics/inf17b.ics
+IN16B;http://ics.mosbach.dhbw.de/ics/in16b.ics
+WIW-IPL17;http://ics.mosbach.dhbw.de/ics/wiw-ipl17.ics
+HD16A;http://ics.mosbach.dhbw.de/ics/hd16a.ics`;
 
     constructor(
       public http:HttpClient
     ) {
-        this.baseUrl = 'http://ics.mosbach.dhbw.de/ics/calendars.list';
+        this.baseUrl = 'http://mmaier9618.000webhostapp.com/database/get/products.php';
     }
 
     getRawData() {
-      return this.http.get(this.baseUrl);
+      //var res = this.http.get(this.baseUrl);
+      this.res = this.res.split(".ics").join(".ics;").split(";");
+      this.res = this.res.filter(function(value, index, Arr) {
+          return index % 2 == 0;
+      });
+      for(var x = 1; x < this.res.length;x++){
+        this.res[x] = this.res[x].substr(1);
+      }
+      this.res.splice(-1,1);
+      this.res.sort();
+      return this.res;
     }
 }
