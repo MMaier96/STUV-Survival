@@ -9,7 +9,7 @@ import { ProviderService } from '../provider/provider.service';
 
 export class IntroPage implements OnInit{
 
-  result: any;
+  resultJson: any;
   filteredResults: any;
   selectedClass;
 
@@ -21,8 +21,8 @@ export class IntroPage implements OnInit{
       dataArr = this.removeNewLines(dataArr);
       dataArr.sort();
       dataArr = this.filterIncorrectData(dataArr);
-      this.result = dataArr;
       this.filteredResults = dataArr;
+      this.resultJson = JSON.stringify(dataArr);
     });
   }
 
@@ -30,6 +30,7 @@ export class IntroPage implements OnInit{
 
   }
   onInput(event){
+    this.filteredResults = JSON.parse(this.resultJson);
     var val = event.target.value;
     if (val && val.trim() !== '') {
       this.filteredResults = this.filteredResults.filter(function(item) {

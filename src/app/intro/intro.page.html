@@ -33,15 +33,18 @@
 
         <ion-row>
           <ion-col>
-            <ion-list style="height: 57vh;">
-  <ion-radio-group>
-
-    <ion-item (click)="onSubmit(r.class)" *ngFor="let r of filteredResults">
-      <ion-label>{{ r.class }}</ion-label>
-      <ion-radio></ion-radio>
-    </ion-item>
-  </ion-radio-group>
-</ion-list>
+            <ion-infinite-scroll>
+              <ion-infinite-scroll-content>
+                <ion-list>
+                  <ion-radio-group>
+                    <ion-item (click)="onSubmit(r.class)" *ngFor="let r of filteredResults">
+                      <ion-label>{{ r.class }}</ion-label>
+                      <ion-radio></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                </ion-list>
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
             </ion-col>
           </ion-row>
 

@@ -26,3 +26,7 @@ ion-slide:first-child ion-grid{
   margin: -5px;
   padding: 0px;
 }
+ion-infinite-scroll.infinite-scroll-enabled.hydrated {
+    height: 57vh;
+    overflow: scroll;
+}
