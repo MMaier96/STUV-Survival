@@ -10,3 +10,19 @@ ion-footer{
   position: fixed;
   bottom:0px;
 }
+ion-slide{
+  background-color: #E70013;
+  color: white;
+}
+ion-slide h1{
+  text-shadow: 1px 2px 2px #0000006e;
+}
+ion-slide img{
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+ion-slide:first-child ion-grid{
+  margin: -5px;
+  padding: 0px;
+}

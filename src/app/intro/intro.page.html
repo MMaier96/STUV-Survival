@@ -1,28 +1,56 @@
 <ion-content>
   <ion-slides pager="true">
     <ion-slide>
-      <h1>Welcome to the new <br><b>STUV Survival</b></h1>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <img src="../../assets/dhbw_logo.png"/>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <h1>Welcome to the new <br><b>STUV Survival</b></h1>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-slide>
     <ion-slide>
       <h1>Why a new app?</h1>
     </ion-slide>
     <ion-slide>
       <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h1>Enter your course:</h1>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-searchbar></ion-searchbar>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-button color="primary">Let's Go!</ion-button>
-        </ion-col>
-      </ion-row>
+        <ion-row>
+          <ion-col>
+            <h1>Enter your course:</h1>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-searchbar (ionInput)="onInput($event)" ></ion-searchbar>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-list style="height: 57vh;">
+  <ion-radio-group>
+
+    <ion-item (click)="onSubmit(r.class)" *ngFor="let r of filteredResults">
+      <ion-label>{{ r.class }}</ion-label>
+      <ion-radio></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>
+            </ion-col>
+          </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-button expand="full" [disabled]="selectedClass == undefined"color="medium">Take that course!</ion-button>
+          </ion-col>
+        </ion-row>
+
       </ion-grid>
     </ion-slide>
   </ion-slides>
