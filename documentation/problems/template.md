@@ -1,19 +1,15 @@
-# [Header]
+# {{ insert header }}
 ## Problem
 ### Description
-[short description]<br />
+{{ describe the problem }} <br />
 
 ### Error/Picture:<br />
-
-[insert the error / image of the error]
-
-<hr />
-
+{{ insert a picture or paste an error message }}
 
 ## Explaination
-[explain why the error occurs]
-
-<hr />
+{{ explain the problem and why it occurrs }}
 
 ## Solution
-[describe how to solve the problem]
+{{ describe how to solve the problem }}
+
+DONE!!!
