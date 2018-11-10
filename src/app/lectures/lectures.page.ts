@@ -14,6 +14,8 @@ export class LecturesPage {
   constructor(
     public service:ProviderService
   ){
-    this.classes = service.getRawData();
+    service.getRawData().subscribe( data => {
+      console.log(data);
+    });
   }
 }

@@ -9,6 +9,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'intro',
+    loadChildren: './intro/intro.module#IntroPageModule'
+  },
+  {
     path: 'lectures',
     loadChildren: './lectures/lectures.module#LecturesPageModule'
   },

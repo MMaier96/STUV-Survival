@@ -1,7 +1,11 @@
 {
   "/ics/*": {
-    "target": "http://ics.mosbach.dhbw.de",
+    "target": {
+        "host": "ics.mosbach.dhbw.de",
+        "protocol": "http:"
+      },
     "secure": false,
-    "logLevel": "debug"
+    "changeOrigin": true,
+    "logLevel": "info"
   }
 }
