@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ProviderService } from '../provider/provider.service';
+import { LecturesService } from '../services/lectures.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-lectures',
@@ -9,10 +10,15 @@ import { ProviderService } from '../provider/provider.service';
 
 export class LecturesPage {
 
-  classes;
-
   constructor(
-    public service:ProviderService
+    public lecturesService:LecturesService,
+    public storage: Storage
   ){
+    this.storage.get("selectedClass").then( className => {
+      this.lecturesService.getLectures(className.toLowerCase()).subscribe( data => {
+        console.log(data); // TODO: convert ics data to usefull json
+      });
+    });
+
   }
 }

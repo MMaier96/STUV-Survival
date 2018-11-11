@@ -57,7 +57,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private storage: Storage,
-    private router: Router
+    private router: Router,
   ) {
     this.initializeApp();
   }
@@ -66,10 +66,11 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.storage.get('firstLogin').then( val => {
-        this.firstLogin = val == undefined || val == false;
-        console.log(this.firstLogin);
-        this.router.navigateByUrl('/intro');
+      this.storage.get('selectedClass').then( val => {
+        this.firstLogin = val == undefined;
+        if(this.firstLogin){
+          this.router.navigateByUrl('/intro', { replaceUrl: true });
+        }
       });
     });
   }

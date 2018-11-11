@@ -1,5 +1,6 @@
 /* Service Provioder */
-import { ProviderService } from './provider/provider.service';
+import { ClassesService } from './services/classes.service';
+import { LecturesService } from './services/lectures.service';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    ProviderService,
+    ClassesService,
+    LecturesService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProviderService } from '../provider/provider.service';
+import { ClassesService } from '../services/classes.service';
+
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intro',
@@ -14,9 +17,11 @@ export class IntroPage implements OnInit{
   selectedClass;
 
   constructor(
-    public provider: ProviderService
+    public classesService: ClassesService,
+    public storage: Storage,
+    public router: Router
   ){
-    provider.getClasses().subscribe(data => {
+    classesService.getClasses().subscribe(data => {
       var dataArr: String[] = this.splitDataByNewLine(data);
       dataArr = this.removeNewLines(dataArr);
       dataArr.sort();
@@ -39,9 +44,15 @@ export class IntroPage implements OnInit{
     }
   }
 
-  onSubmit(selected){
+  onSelect(selected){
     this.selectedClass = selected;
   }
+
+  onSubmit(){
+    this.storage.set("selectedClass", this.selectedClass);
+    this.router.navigateByUrl('/', { replaceUrl: true });
+  }
+
   splitDataByNewLine(data){
     return data.split(/(\r\n|\n|\r)/gm);
   }
