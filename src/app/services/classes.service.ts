@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ClassesService {
-    baseUrl = '/ics/calendars.list';
+    baseUrl = 'http://ics.mosbach.dhbw.de/ics/calendars.list';
 
     constructor(
       public http:HttpClient
