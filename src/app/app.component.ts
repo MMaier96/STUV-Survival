@@ -29,7 +29,7 @@ export class AppComponent {
   public externalPages = [
     {
       title: 'Cantine',
-      externalUrl: 'https://www.studentenwerk.uni-heidelberg.de/sites/default/files/download/pdf/sp-mos-mensa-aktuell.pdf',
+      externalUrl: '/cantine',
       icon: 'restaurant'
     },
     {

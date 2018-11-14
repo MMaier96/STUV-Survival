@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LecturesPage } from './lectures/lectures.page';
 
 const routes: Routes = [
   {
@@ -23,7 +22,8 @@ const routes: Routes = [
   {
     path: 'settings',
     loadChildren: './settings/settings.module#SettingsPageModule'
-  }
+  },
+  { path: 'cantine', loadChildren: './cantine/cantine.module#CantinePageModule' }
 ];
 
 @NgModule({
