@@ -37,8 +37,8 @@
               <ion-infinite-scroll-content>
                 <ion-list>
                   <ion-radio-group>
-                    <ion-item (click)="onSelect(r.class)" *ngFor="let r of filteredResults">
-                      <ion-label>{{ r.class }}</ion-label>
+                    <ion-item (click)="onSelect(course)" *ngFor="let course of filteredCourses">
+                      <ion-label>{{ course }}</ion-label>
                       <ion-radio></ion-radio>
                     </ion-item>
                   </ion-radio-group>

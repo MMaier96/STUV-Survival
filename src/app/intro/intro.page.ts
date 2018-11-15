@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ClassesService } from '../services/classes.service';
+import { HttpService } from '../services/http.service';
+import { Utils } from '../services/utils'
 
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+
+
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-intro',
@@ -12,22 +17,21 @@ import { Router } from '@angular/router';
 
 export class IntroPage implements OnInit{
 
-  resultJson: any;
-  filteredResults: any;
+  allCourses: any;
+  filteredCourses: any;
   selectedClass;
 
   constructor(
-    public classesService: ClassesService,
+    public http: HttpService,
     public storage: Storage,
-    public router: Router
+    public router: Router,
+    public utils: Utils
   ){
-    classesService.getClasses().subscribe(data => {
-      var dataArr: String[] = this.splitDataByNewLine(data);
-      dataArr = this.removeNewLines(dataArr);
-      dataArr.sort();
-      dataArr = this.filterIncorrectData(dataArr);
-      this.filteredResults = dataArr;
-      this.resultJson = JSON.stringify(dataArr);
+    http.getCourses().then( course => {
+      var courseList = course.map( e => e.courseTitle).sort();
+
+      this.allCourses = utils.deepClone(courseList);
+      this.resetCourses();
     });
   }
 
@@ -35,11 +39,11 @@ export class IntroPage implements OnInit{
 
   }
   onInput(event){
-    this.filteredResults = JSON.parse(this.resultJson);
+    this.resetCourses();
     var val = event.target.value;
     if (val && val.trim() !== '') {
-      this.filteredResults = this.filteredResults.filter(function(item) {
-        return item.class.toLowerCase().includes(val.toLowerCase());
+      this.filteredCourses = this.filteredCourses.filter(function(courseName) {
+        return courseName.toLowerCase().includes(val.toLowerCase());
       });
     }
   }
@@ -53,28 +57,7 @@ export class IntroPage implements OnInit{
     this.router.navigateByUrl('/', { replaceUrl: true });
   }
 
-  splitDataByNewLine(data){
-    return data.split(/(\r\n|\n|\r)/gm);
-  }
-
-  removeNewLines(data){
-    return data.filter(function(value, index, Arr) {
-        return index % 2 == 0;
-    });
-  }
-
-  filterIncorrectData(data){
-    for(var i = 0; i < data.length; i++){
-      var splitIndex = data[i].split(";");
-      if(splitIndex.length == 2 && splitIndex[0].length > 1 && splitIndex[1].length > 1 && splitIndex[0] != "CALENDARS"){
-        data[i] = { "class": splitIndex[0], "url": splitIndex[1]};
-      }else{
-        data[i]  = "ERROR!";
-      }
-    }
-    data = data.filter(function(value, index, Arr) {
-        return value != "ERROR!";
-    });
-    return data
+  resetCourses(){
+    this.filteredCourses = this.utils.deepClone(this.allCourses);
   }
 }
