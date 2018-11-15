@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { variables } from '../global/variables';
+import { environment } from '../../environments/environment';
 import { Course } from '../objects/course';
 
 const CourseRoute = 'courses';
@@ -8,7 +8,7 @@ const CourseRoute = 'courses';
 @Injectable()
 export class HttpService {
 
-  private static SERVER = variables.backendUrl;
+  private static SERVER = environment.backendUrl;
 
   constructor(private httpClient: HttpClient) { }
 
