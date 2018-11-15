@@ -1,10 +1,10 @@
 {
-  "/ics/*": {
+  "/api/*": {
     "target": {
-        "host": "ics.mosbach.dhbw.de",
-        "protocol": "http:"
+        "host": "stuvappbackend.herokuapp.com",
+        "protocol": "https:"
       },
-    "secure": false,
+    "secure": true,
     "changeOrigin": true,
     "logLevel": "info"
   }
