@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../services/http.service';
-import { Utils } from '../services/utils'
+import { HttpService } from '../../services/http.service';
+import { Utils } from '../../services/utils'
 
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
-
-
-import { map } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-intro',

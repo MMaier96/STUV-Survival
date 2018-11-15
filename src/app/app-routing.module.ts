@@ -9,21 +9,23 @@ const routes: Routes = [
   },
   {
     path: 'intro',
-    loadChildren: './intro/intro.module#IntroPageModule'
+    loadChildren: './pages/intro/intro.module#IntroPageModule'
   },
   {
     path: 'lectures',
-    loadChildren: './lectures/lectures.module#LecturesPageModule'
+    loadChildren: './pages/lectures/lectures.module#LecturesPageModule'
   },
   {
     path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
+    loadChildren: './pages/list/list.module#ListPageModule'
   },
   {
     path: 'settings',
-    loadChildren: './settings/settings.module#SettingsPageModule'
+    loadChildren: './pages/settings/settings.module#SettingsPageModule'
   },
-  { path: 'cantine', loadChildren: './cantine/cantine.module#CantinePageModule' }
+  {
+    path: 'cantine',
+    loadChildren: './pages/cantine/cantine.module#CantinePageModule' }
 ];
 
 @NgModule({
