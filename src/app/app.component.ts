@@ -24,14 +24,14 @@ export class AppComponent {
       url: '/events',
       icon: 'calendar'
     },
+    {
+      title: 'Cantine',
+      url: '/cantine',
+      icon: 'restaurant'
+    }
   ];
 
   public externalPages = [
-    {
-      title: 'Cantine',
-      externalUrl: '/cantine',
-      icon: 'restaurant'
-    },
     {
       title: 'DHBW Mail',
       externalUrl: 'https://webmail.lehre.mosbach.dhbw.de/',
