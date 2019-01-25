@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { HttpService } from '../../core/http.service';
+import { Storage } from '@ionic/storage';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 
 @Component({
-  selector: 'app-lectures',
-  templateUrl: 'lectures.page.html',
-  styleUrls: ['lectures.page.scss'],
+  selector: 'app-events',
+  templateUrl: 'events.page.html',
+  styleUrls: ['events.page.scss']
 })
+export class EventsPage implements OnInit {
 
-export class LecturesPage implements OnInit {
-
-  lectures: CalendarEventPerDay[];
+  events: CalendarEventPerDay[];
 
   constructor(
     public _httpService: HttpService,
@@ -30,8 +29,9 @@ export class LecturesPage implements OnInit {
   }
 
   loadEvents() {
-    this._httpService.getLecturesForCourseTitlePerDay('inf16a').then(l => {
-      this.lectures = l;
+    this._httpService.getStuvEventsPerDay().then(e => {
+      this.events = e;
     });
   }
+
 }

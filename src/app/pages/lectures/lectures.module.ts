@@ -5,9 +5,12 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { LecturesPage } from './lectures.page';
+import { CoreModule } from '../../core/core.module';
+import { HttpService } from '../../core/http.service';
 
 @NgModule({
   imports: [
+    CoreModule,
     CommonModule,
     FormsModule,
     IonicModule,
@@ -18,6 +21,9 @@ import { LecturesPage } from './lectures.page';
       }
     ])
   ],
-  declarations: [LecturesPage]
+  declarations: [LecturesPage],
+  providers: [
+    HttpService
+  ]
 })
 export class LecturesPageModule {}
