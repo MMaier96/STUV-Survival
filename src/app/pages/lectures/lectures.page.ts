@@ -11,6 +11,8 @@ import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 
 export class LecturesPage implements OnInit {
 
+  loadedLectures: CalendarEventPerDay[];
+
   lectures: CalendarEventPerDay[];
 
   constructor(
@@ -25,13 +27,24 @@ export class LecturesPage implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.loadEvents();
+  showAll() {
+    this.lectures = this.loadedLectures;
   }
 
-  loadEvents() {
+  showFromToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    this.lectures = this.loadedLectures.filter(e => e.Key >= today.getTime());
+  }
+
+  ngOnInit() {
+    this.loadLectures();
+  }
+
+  loadLectures() {
     this._httpService.getLecturesForCourseTitlePerDay('inf16a').then(l => {
-      this.lectures = l;
+      this.loadedLectures = l;
+      this.showFromToday();
     });
   }
 }

@@ -10,6 +10,8 @@ import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 })
 export class EventsPage implements OnInit {
 
+  loadedEvents: CalendarEventPerDay[];
+
   events: CalendarEventPerDay[];
 
   constructor(
@@ -24,13 +26,24 @@ export class EventsPage implements OnInit {
 
   }
 
+  showAll() {
+    this.events = this.loadedEvents;
+  }
+
+  showFromToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    this.events = this.loadedEvents.filter(e => e.Key >= today.getTime());
+  }
+
   ngOnInit() {
     this.loadEvents();
   }
 
   loadEvents() {
     this._httpService.getStuvEventsPerDay().then(e => {
-      this.events = e;
+      this.loadedEvents = e;
+      this.showFromToday();
     });
   }
 
