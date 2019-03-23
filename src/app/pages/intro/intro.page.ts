@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-import { Utils } from '../../services/utils'
+import { Utils } from '../../services/utils';
 
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ export class IntroPage implements OnInit {
 
   allCourses: any;
   filteredCourses: any;
-  selectedClass;
+  selectedClass: any;
 
   constructor(
     public http: HttpService,
@@ -34,7 +34,7 @@ export class IntroPage implements OnInit {
   ngOnInit() {
 
   }
-  onInput(event) {
+  onInput(event: { target: { value: any; }; }) {
     this.resetCourses();
     const val = event.target.value;
     if (val && val.trim() !== '') {
@@ -44,7 +44,7 @@ export class IntroPage implements OnInit {
     }
   }
 
-  onSelect(selected) {
+  onSelect(selected: any) {
     this.selectedClass = selected;
   }
 
