@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Lectures
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="showAll()">Previous Events</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item-group>
+        <div *ngFor="let dayEvents of events">
+        <ion-item-divider>
+          <ion-label>{{dayEvents.Key | date:"E - dd.MM.yy"}}</ion-label>
+        </ion-item-divider>
+        <ion-card *ngFor="let events of dayEvents.Content">
+        <ion-card-header>
+          <ion-card-title>{{events.Summary}}</ion-card-title>
+          <!--<ion-card-subtitle>{{events.Description}}</ion-card-subtitle>-->
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>
+            {{events.Start | date:"HH:mm"}} - {{events.End | date:"HH:mm"}}
+          </ion-label>
+          <ion-label>
+            {{events.Location}}
+          </ion-label>
+        </ion-card-content>
+        </ion-card>
+      </div>
+      </ion-item-group>
+</ion-content>

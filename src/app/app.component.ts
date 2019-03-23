@@ -67,8 +67,8 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.storage.get('selectedClass').then( val => {
-        this.firstLogin = val == undefined;
-        if(this.firstLogin){
+        this.firstLogin = val === undefined;
+        if (this.firstLogin) {
           this.router.navigateByUrl('/intro', { replaceUrl: true });
         }
       });

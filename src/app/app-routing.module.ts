@@ -16,8 +16,8 @@ const routes: Routes = [
     loadChildren: './pages/lectures/lectures.module#LecturesPageModule'
   },
   {
-    path: 'list',
-    loadChildren: './pages/list/list.module#ListPageModule'
+    path: 'events',
+    loadChildren: './pages/events/events.module#EventsPageModule'
   },
   {
     path: 'settings',

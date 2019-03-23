@@ -6,115 +6,34 @@
     <ion-title>
       Lectures
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="showAll()">Previous Events</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-
   <ion-item-group>
+    <div *ngFor="let dayLectures of lectures">
     <ion-item-divider>
-      <ion-label>Heute</ion-label>
+      <ion-label>{{dayLectures.Key | date:"E - dd.MM.yy"}}</ion-label>
     </ion-item-divider>
-    <ion-card>
+    <ion-card *ngFor="let lecture of dayLectures.Content">
     <ion-card-header>
-      <ion-card-title>Bildverarbeitung Vorlesung</ion-card-title>
-      <ion-card-subtitle>Dr. B. Jutzi</ion-card-subtitle>
+      <ion-card-title>{{lecture.Summary}}</ion-card-title>
+      <ion-card-subtitle>{{lecture.Description}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-label>
-        08:15 - 12:15
+        {{lecture.Start | date:"HH:mm"}} - {{lecture.End | date:"HH:mm"}}
       </ion-label>
       <ion-label>
-        B-1.180
+        {{lecture.Location}}
       </ion-label>
     </ion-card-content>
     </ion-card>
-
-    <ion-card>
-    <ion-card-header>
-      <ion-card-title>Bildverarbeitung Vorlesung</ion-card-title>
-      <ion-card-subtitle>Dr. B. Jutzi</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-label>
-        08:15 - 12:15
-      </ion-label>
-      <ion-label>
-        B-1.180
-      </ion-label>
-    </ion-card-content>
-    </ion-card>
-  </ion-item-group>
-
-  <ion-item-group>
-    <ion-item-divider>
-      <ion-label>Morgen</ion-label>
-    </ion-item-divider>
-    <ion-card>
-    <ion-card-header>
-      <ion-card-title>Bildverarbeitung Vorlesung</ion-card-title>
-      <ion-card-subtitle>Dr. B. Jutzi</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-label>
-        08:15 - 12:15
-      </ion-label>
-      <ion-label>
-        B-1.180
-      </ion-label>
-    </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-    <ion-card-header>
-      <ion-card-title>Bildverarbeitung Vorlesung</ion-card-title>
-      <ion-card-subtitle>Dr. B. Jutzi</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-label>
-        08:15 - 12:15
-      </ion-label>
-      <ion-label>
-        B-1.180
-      </ion-label>
-    </ion-card-content>
-    </ion-card>
-  </ion-item-group>
-
-  <ion-item-group>
-    <ion-item-divider>
-      <ion-label>14.11.2018</ion-label>
-    </ion-item-divider>
-    <ion-card>
-    <ion-card-header>
-      <ion-card-title>Bildverarbeitung Vorlesung</ion-card-title>
-      <ion-card-subtitle>Dr. B. Jutzi</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-label>
-        08:15 - 12:15
-      </ion-label>
-      <ion-label>
-        B-1.180
-      </ion-label>
-    </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-    <ion-card-header>
-      <ion-card-title>Bildverarbeitung Vorlesung</ion-card-title>
-      <ion-card-subtitle>Dr. B. Jutzi</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-label>
-        08:15 - 12:15
-      </ion-label>
-      <ion-label>
-        B-1.180
-      </ion-label>
-    </ion-card-content>
-    </ion-card>
+  </div>
   </ion-item-group>
 
 </ion-content>

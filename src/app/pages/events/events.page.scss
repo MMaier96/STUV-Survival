@@ -1,0 +1,25 @@
+[padding] {
+    --padding-top: var(--ion-padding, 0px);
+}
+.item.sc-ion-label-md-h, .item .sc-ion-label-md-h{
+  margin: 0px;
+}
+
+ion-card-subtitle.hydrated{
+    position: absolute;
+    right: 15px;
+    bottom: -40px;
+}
+ion-card-header.hydrated {
+    padding: 9px 16px 4px;
+}
+.sc-ion-card-md-h {
+    margin: 9px 5px;
+    border-radius: 0px;
+    font-size: 14px;
+    -webkit-box-shadow: 0 1.5px 0.5px -1px rgba(0,0,0,.1), 0 0.5px 1px 0 rgba(0,0,0,.08), 0 0.5px 2px 0 rgba(0,0,0,.08);
+    box-shadow: 0 1.5px 0.5px -1px rgba(0,0,0,.1), 0 0.5px 1px 0 rgba(0,0,0,.08), 0 0.5px 2px 0 rgba(0,0,0,.08);
+}
+ion-item-divider.item.hydrated {
+    margin-top: 30px;
+}

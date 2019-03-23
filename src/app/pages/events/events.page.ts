@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { HttpService } from '../../core/http.service';
+import { Storage } from '@ionic/storage';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 
 @Component({
-  selector: 'app-lectures',
-  templateUrl: 'lectures.page.html',
-  styleUrls: ['lectures.page.scss'],
+  selector: 'app-events',
+  templateUrl: 'events.page.html',
+  styleUrls: ['events.page.scss']
 })
+export class EventsPage implements OnInit {
 
-export class LecturesPage implements OnInit {
+  loadedEvents: CalendarEventPerDay[];
 
-  loadedLectures: CalendarEventPerDay[];
-
-  lectures: CalendarEventPerDay[];
+  events: CalendarEventPerDay[];
 
   constructor(
     public _httpService: HttpService,
@@ -28,23 +27,24 @@ export class LecturesPage implements OnInit {
   }
 
   showAll() {
-    this.lectures = this.loadedLectures;
+    this.events = this.loadedEvents;
   }
 
   showFromToday() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    this.lectures = this.loadedLectures.filter(e => e.Key >= today.getTime());
+    this.events = this.loadedEvents.filter(e => e.Key >= today.getTime());
   }
 
   ngOnInit() {
-    this.loadLectures();
+    this.loadEvents();
   }
 
-  loadLectures() {
-    this._httpService.getLecturesForCourseTitlePerDay('inf16a').then(l => {
-      this.loadedLectures = l;
+  loadEvents() {
+    this._httpService.getStuvEventsPerDay().then(e => {
+      this.loadedEvents = e;
       this.showFromToday();
     });
   }
+
 }

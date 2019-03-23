@@ -10,8 +10,8 @@ export class SettingsPage implements OnInit {
   constructor() {
 
   }
-  
-  ngOnInit(){
+
+  ngOnInit() {
 
   }
 }
