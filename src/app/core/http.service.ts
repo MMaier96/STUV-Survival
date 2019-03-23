@@ -8,6 +8,7 @@ import { CalendarEventPerDay } from '../models/calendar-event-per-day';
 const CourseRoute = 'courses';
 const EventsRoute = 'events';
 const LecturesForCourseRoute = 'lectures/';
+const ByDayRoute = 'byDay';
 
 @Injectable()
 export class HttpService {
@@ -29,7 +30,7 @@ export class HttpService {
   }
 
   getStuvEventsPerDay(): Promise<CalendarEventPerDay[]> {
-    return this.httpClient.get<CalendarEventPerDay[]>(HttpService.SERVER + EventsRoute + '/byDay')
+    return this.httpClient.get<CalendarEventPerDay[]>(HttpService.SERVER + EventsRoute + '/' + ByDayRoute)
     .toPromise()
     .catch(this.handleError);
   }
@@ -41,13 +42,19 @@ export class HttpService {
   }
 
   getLecturesForCourseTitlePerDay(courseTitel: String): Promise<CalendarEventPerDay[]> {
-    return this.httpClient.get<CalendarEventPerDay[]>(HttpService.SERVER + LecturesForCourseRoute + 'byDay/' + courseTitel)
+    return this.httpClient.get<CalendarEventPerDay[]>(HttpService.SERVER + LecturesForCourseRoute + ByDayRoute + '/' + courseTitel)
     .toPromise()
     .catch(this.handleError);
   }
 
   getLecturesForCourse(course: Course): Promise<CalendarEvent[]> {
-    return this.httpClient.get<CalendarEvent[]>(HttpService.SERVER + LecturesForCourseRoute + course.courseTitle)
+    return this.httpClient.get<CalendarEvent[]>(HttpService.SERVER + LecturesForCourseRoute + course.title)
+    .toPromise()
+    .catch(this.handleError);
+  }
+
+  getLecturesForCoursePerDay(course: Course): Promise<CalendarEventPerDay[]> {
+    return this.httpClient.get<CalendarEventPerDay[]>(HttpService.SERVER + LecturesForCourseRoute + ByDayRoute + '/' + course.title)
     .toPromise()
     .catch(this.handleError);
   }

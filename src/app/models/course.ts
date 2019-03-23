@@ -1,3 +1,4 @@
 export class Course {
-    courseTitle: string;
+    title: string;
+    calendarUrl: string;
 }

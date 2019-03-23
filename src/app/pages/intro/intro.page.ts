@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['intro.page.scss'],
 })
 
-export class IntroPage implements OnInit{
+export class IntroPage implements OnInit {
 
   allCourses: any;
   filteredCourses: any;
@@ -22,21 +22,21 @@ export class IntroPage implements OnInit{
     public storage: Storage,
     public router: Router,
     public utils: Utils
-  ){
+  ) {
     http.getCourses().then( course => {
-      var courseList = course.map( e => e.courseTitle).sort();
+      const courseList = course.map( e => e.title).sort();
 
       this.allCourses = utils.deepClone(courseList);
       this.resetCourses();
     });
   }
 
-  ngOnInit(){
+  ngOnInit() {
 
   }
-  onInput(event){
+  onInput(event) {
     this.resetCourses();
-    var val = event.target.value;
+    const val = event.target.value;
     if (val && val.trim() !== '') {
       this.filteredCourses = this.filteredCourses.filter(function(courseName) {
         return courseName.toLowerCase().includes(val.toLowerCase());
@@ -44,16 +44,16 @@ export class IntroPage implements OnInit{
     }
   }
 
-  onSelect(selected){
+  onSelect(selected) {
     this.selectedClass = selected;
   }
 
-  onSubmit(){
-    this.storage.set("selectedClass", this.selectedClass);
+  onSubmit() {
+    this.storage.set('selectedClass', this.selectedClass);
     this.router.navigateByUrl('/', { replaceUrl: true });
   }
 
-  resetCourses(){
+  resetCourses() {
     this.filteredCourses = this.utils.deepClone(this.allCourses);
   }
 }
