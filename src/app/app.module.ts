@@ -16,16 +16,17 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
+import { MultiLinePipe } from './multiline.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MultiLinePipe],
   entryComponents: [],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     StatusBar,

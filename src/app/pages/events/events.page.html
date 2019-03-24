@@ -21,9 +21,11 @@
         <ion-card *ngFor="let events of dayEvents.Content">
         <ion-card-header>
           <ion-card-title>{{events.Summary}}</ion-card-title>
-          <!--<ion-card-subtitle>{{events.Description}}</ion-card-subtitle>-->
         </ion-card-header>
         <ion-card-content>
+          <ion-label>
+            {{events.Description | multiline}}
+          </ion-label>
           <ion-label>
             {{events.Start | date:"HH:mm"}} - {{events.End | date:"HH:mm"}}
           </ion-label>
