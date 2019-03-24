@@ -12,7 +12,7 @@
 
           <!-- app pages -->
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+            <ion-item lines="full" [routerDirection]="'root'" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
@@ -25,7 +25,7 @@
         <ion-list class="external">
           <!-- external pages -->
           <ion-menu-toggle  auto-hide="false" *ngFor="let p of externalPages">
-              <ion-item [href]="p.externalUrl">
+              <ion-item lines="full" [href]="p.externalUrl">
                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
                 <ion-label>
                   {{p.title}}
@@ -35,7 +35,7 @@
         </ion-list>
 
         <ion-menu-toggle class="settings" auto-hide="false">
-            <ion-item [routerDirection]="'root'" routerLink="/settings">
+            <ion-item lines="full" [routerDirection]="'root'" routerLink="/settings">
               <ion-icon slot="start" name="settings"></ion-icon>
               <ion-label>
                 Settings
