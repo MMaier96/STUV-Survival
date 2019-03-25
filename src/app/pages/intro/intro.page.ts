@@ -23,8 +23,8 @@ export class IntroPage implements OnInit {
     public router: Router,
     public utils: Utils
   ) {
-    http.getCourses().then( course => {
-      const courseList = course.map( e => e.title).sort();
+    http.getCourses().then(course => {
+      const courseList = course.map(e => e.title).sort();
 
       this.allCourses = utils.deepClone(courseList);
       this.resetCourses();
@@ -32,13 +32,17 @@ export class IntroPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.storage.get('selectedCourse').then(val => {
+      if (val !== undefined && val !== null) {
+        this.router.navigateByUrl('/lectures', { replaceUrl: true });
+      }
+    });
   }
   onInput(event: { target: { value: any; }; }) {
     this.resetCourses();
     const val = event.target.value;
     if (val && val.trim() !== '') {
-      this.filteredCourses = this.filteredCourses.filter(function(courseName) {
+      this.filteredCourses = this.filteredCourses.filter(function (courseName) {
         return courseName.toLowerCase().includes(val.toLowerCase());
       });
     }
@@ -49,8 +53,8 @@ export class IntroPage implements OnInit {
   }
 
   onSubmit() {
-    this.storage.set('selectedClass', this.selectedClass);
-    this.router.navigateByUrl('/', { replaceUrl: true });
+    this.storage.set('selectedCourse', this.selectedClass);
+    this.router.navigateByUrl('/lectures', { replaceUrl: true });
   }
 
   resetCourses() {
