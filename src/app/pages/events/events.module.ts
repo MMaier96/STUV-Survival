@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { EventsPage } from './events.page';
 import { CoreModule } from '../../core/core.module';
 import { HttpService } from '../../core/http.service';
+import { PipeModule } from '../../pipe/pipe.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { HttpService } from '../../core/http.service';
         path: '',
         component: EventsPage
       }
-    ])
+    ]),
+    PipeModule
   ],
   declarations: [EventsPage],
   providers: [

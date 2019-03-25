@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../core/http.service';
 import { Storage } from '@ionic/storage';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
-import { MultiLinePipe } from '../../multiline.pipe';
+import { MultilinePipe } from '../../pipe/multiline.pipe';
 
 @Component({
   selector: 'app-events',
@@ -29,7 +29,7 @@ export class EventsPage implements OnInit {
 
   showAll() {
     this.events = this.loadedEvents;
-    new MultiLinePipe().transform('test');
+    new MultilinePipe().transform('test');
   }
 
   showFromToday() {

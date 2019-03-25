@@ -1,8 +1,8 @@
-import { MultiLinePipe } from './multiline.pipe';
+import { MultilinePipe } from './multiline.pipe';
 
 describe('MultilinePipe', () => {
   it('create an instance', () => {
-    const pipe = new MultiLinePipe();
+    const pipe = new MultilinePipe();
     expect(pipe).toBeTruthy();
   });
 });
