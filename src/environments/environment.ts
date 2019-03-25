@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
-  backendUrl: 'http://marcelmaier.ddns.net:3000/api/'
+  backendUrl: 'https://survivalapi.herokuapp.com/survivalapi/'
 };
 
 /*

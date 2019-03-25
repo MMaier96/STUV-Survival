@@ -16,7 +16,7 @@
     <ion-item-group>
         <div *ngFor="let dayEvents of events">
         <ion-item-divider>
-          <ion-label>{{dayEvents.Key | date:"E - dd.MM.yy"}}</ion-label>
+          <ion-label>{{dayEvents.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
         </ion-item-divider>
         <ion-card *ngFor="let events of dayEvents.Content">
         <ion-card-header>
@@ -27,7 +27,7 @@
             {{events.Description | multiline}}
           </ion-label>
           <ion-label>
-            {{events.Start | date:"HH:mm"}} - {{events.End | date:"HH:mm"}}
+            {{events.Start | date:"HH:mm":"UTC"}} - {{events.End | date:"HH:mm":"UTC"}}
           </ion-label>
           <ion-label>
             {{events.Location}}
