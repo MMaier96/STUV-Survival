@@ -4,6 +4,7 @@ import { Utils } from '../../services/utils';
 
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-intro',
@@ -32,7 +33,7 @@ export class IntroPage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.get('selectedCourse').then(val => {
+    this.storage.get(environment.storageLocations.course).then(val => {
       if (val !== undefined && val !== null) {
         this.router.navigateByUrl('/lectures', { replaceUrl: true });
       }
@@ -53,7 +54,7 @@ export class IntroPage implements OnInit {
   }
 
   onSubmit() {
-    this.storage.set('selectedCourse', this.selectedClass);
+    this.storage.set(environment.storageLocations.course, this.selectedClass);
     this.router.navigateByUrl('/lectures', { replaceUrl: true });
   }
 

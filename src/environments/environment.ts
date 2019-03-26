@@ -4,7 +4,12 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
-  backendUrl: 'https://survivalapi.herokuapp.com/survivalapi/'
+  backendUrl: 'https://survivalapi.herokuapp.com/survivalapi/',
+  storageLocations: {
+    course: 'SelectedCourse',
+    lectures: 'Lectures',
+    events: 'Events'
+  }
 };
 
 /*

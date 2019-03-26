@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { HttpService } from '../../core/http.service';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-lectures',
@@ -58,7 +59,7 @@ export class LecturesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.get('selectedCourse').then( (val) => {
+    this.storage.get(environment.storageLocations.course).then( (val) => {
       if (val === undefined || val === null) {
         this.router.navigateByUrl('/intro', { replaceUrl: true });
       }
