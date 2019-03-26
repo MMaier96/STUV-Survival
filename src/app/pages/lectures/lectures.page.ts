@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { HttpService } from '../../core/http.service';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lectures',
@@ -11,24 +12,43 @@ import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 
 export class LecturesPage implements OnInit {
 
+  private previousEventButton = {
+    title: 'Previous Events',
+    icon: 'time'
+  };
+
+  private currentEventButton = {
+    title: 'Current Events',
+    icon: 'undo'
+  };
+
+  filterButton = this.previousEventButton;
+
+  courseTitle: String;
+
   loadedLectures: CalendarEventPerDay[];
 
   lectures: CalendarEventPerDay[];
 
   constructor(
     public _httpService: HttpService,
-    public storage: Storage
+    public storage: Storage,
+    private router: Router
   ) {
-    /*this.storage.get("selectedClass").then( className => {
-      this.lecturesService.getLectures(className.toLowerCase()).subscribe( data => {
-        console.log(data); // TODO: convert ics data to usefull json
-      });
-    });*/
-
   }
 
   showAll() {
     this.lectures = this.loadedLectures;
+  }
+
+  switchTimeView() {
+    if (this.filterButton === this.previousEventButton) {
+      this.showAll();
+      this.filterButton = this.currentEventButton;
+    } else if (this.filterButton === this.currentEventButton) {
+      this.showFromToday();
+      this.filterButton = this.previousEventButton;
+    }
   }
 
   showFromToday() {
@@ -38,11 +58,17 @@ export class LecturesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.loadLectures();
+    this.storage.get('selectedCourse').then( (val) => {
+      if (val === undefined || val === null) {
+        this.router.navigateByUrl('/intro', { replaceUrl: true });
+      }
+      this.courseTitle = val;
+      this.loadLectures();
+    });
   }
 
   loadLectures() {
-    this._httpService.getLecturesForCourseTitlePerDay('inf16b').then(l => {
+    this._httpService.getLecturesForCourseTitlePerDay(this.courseTitle).then(l => {
       this.loadedLectures = l;
       this.showFromToday();
     });

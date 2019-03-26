@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { LecturesPage } from './lectures.page';
 import { CoreModule } from '../../core/core.module';
 import { HttpService } from '../../core/http.service';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   imports: [
@@ -14,6 +15,12 @@ import { HttpService } from '../../core/http.service';
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicStorageModule.forRoot(
+      {
+        name: 'survivalDB',
+        driverOrder: ['indexeddb', 'sqlite', 'websql']
+      }
+    ),
     RouterModule.forChild([
       {
         path: '',

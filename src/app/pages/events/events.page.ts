@@ -10,6 +10,17 @@ import { MultilinePipe } from '../../pipe/multiline.pipe';
   styleUrls: ['events.page.scss']
 })
 export class EventsPage implements OnInit {
+  private previousEventButton = {
+    title: 'Previous Events',
+    icon: 'time'
+  };
+
+  private currentEventButton = {
+    title: 'Current Events',
+    icon: 'undo'
+  };
+
+  filterButton = this.previousEventButton;
 
   loadedEvents: CalendarEventPerDay[];
 
@@ -24,12 +35,20 @@ export class EventsPage implements OnInit {
         console.log(data); // TODO: convert ics data to usefull json
       });
     });*/
-
   }
 
   showAll() {
     this.events = this.loadedEvents;
-    new MultilinePipe().transform('test');
+  }
+
+  switchTimeView() {
+    if (this.filterButton === this.previousEventButton) {
+      this.showAll();
+      this.filterButton = this.currentEventButton;
+    } else if (this.filterButton === this.currentEventButton) {
+      this.showFromToday();
+      this.filterButton = this.previousEventButton;
+    }
   }
 
   showFromToday() {

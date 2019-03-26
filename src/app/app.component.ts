@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: 'app.component.html',
   styleUrls: ['app.page.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public appPages = [
     {
       title: 'Lectures',
@@ -59,6 +59,9 @@ export class AppComponent {
     private storage: Storage,
     private router: Router,
   ) {
+  }
+
+  ngOnInit() {
     this.initializeApp();
   }
 
@@ -66,12 +69,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.storage.get('selectedClass').then( val => {
-        this.firstLogin = val === undefined;
-        if (this.firstLogin) {
-          this.router.navigateByUrl('/intro', { replaceUrl: true });
-        }
-      });
     });
   }
 }

@@ -24,7 +24,12 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot(
+      {
+        name: 'survivalDB',
+        driverOrder: ['indexeddb', 'sqlite', 'websql']
+      }
+    ),
     AppRoutingModule
   ],
   providers: [
@@ -36,4 +41,4 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

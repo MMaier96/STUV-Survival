@@ -7,7 +7,7 @@
       Lectures
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button color="light" (click)="showAll()">Previous Events</ion-button>
+      <ion-button color="light" (click)="switchTimeView()"><ion-icon [name]="filterButton.icon"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +17,7 @@
   <ion-item-group>
     <div *ngFor="let dayLectures of lectures">
     <ion-item-divider>
-      <ion-label>{{dayLectures.Key | date:"E - dd.MM.yy"}}</ion-label>
+      <ion-label>{{dayLectures.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
     </ion-item-divider>
     <ion-card *ngFor="let lecture of dayLectures.Content">
     <ion-card-header>
@@ -26,7 +26,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-label>
-        {{lecture.Start | date:"HH:mm"}} - {{lecture.End | date:"HH:mm"}}
+        {{lecture.Start | date:"HH:mm":"UTC"}} - {{lecture.End | date:"HH:mm":"UTC"}}
       </ion-label>
       <ion-label>
         {{lecture.Location}} &nbsp;

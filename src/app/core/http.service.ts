@@ -36,25 +36,27 @@ export class HttpService {
   }
 
   getLecturesForCourseTitle(courseTitel: String): Promise<CalendarEvent[]> {
-    return this.httpClient.get<CalendarEvent[]>(HttpService.SERVER + LecturesForCourseRoute + courseTitel)
+    return this.httpClient.get<CalendarEvent[]>(HttpService.SERVER + LecturesForCourseRoute + courseTitel.toLowerCase())
     .toPromise()
     .catch(this.handleError);
   }
 
   getLecturesForCourseTitlePerDay(courseTitel: String): Promise<CalendarEventPerDay[]> {
-    return this.httpClient.get<CalendarEventPerDay[]>(HttpService.SERVER + LecturesForCourseRoute + ByDayRoute + '/' + courseTitel)
+    return this.httpClient
+    .get<CalendarEventPerDay[]>(HttpService.SERVER + LecturesForCourseRoute + ByDayRoute + '/' + courseTitel.toLowerCase())
     .toPromise()
     .catch(this.handleError);
   }
 
   getLecturesForCourse(course: Course): Promise<CalendarEvent[]> {
-    return this.httpClient.get<CalendarEvent[]>(HttpService.SERVER + LecturesForCourseRoute + course.title)
+    return this.httpClient.get<CalendarEvent[]>(HttpService.SERVER + LecturesForCourseRoute + course.title.toLowerCase())
     .toPromise()
     .catch(this.handleError);
   }
 
   getLecturesForCoursePerDay(course: Course): Promise<CalendarEventPerDay[]> {
-    return this.httpClient.get<CalendarEventPerDay[]>(HttpService.SERVER + LecturesForCourseRoute + ByDayRoute + '/' + course.title)
+    return this.httpClient
+    .get<CalendarEventPerDay[]>(HttpService.SERVER + LecturesForCourseRoute + ByDayRoute + '/' + course.title.toLowerCase())
     .toPromise()
     .catch(this.handleError);
   }
