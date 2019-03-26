@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { HttpService } from '../../core/http.service';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { StorageService } from '../../core/storage.service';
 
 @Component({
   selector: 'app-lectures',
@@ -33,7 +34,7 @@ export class LecturesPage implements OnInit {
 
   constructor(
     public _httpService: HttpService,
-    public storage: Storage,
+    public _nativeStorage: NativeStorage,
     private router: Router
   ) {
   }
@@ -59,19 +60,32 @@ export class LecturesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.get(environment.storageLocations.course).then( (val) => {
-      if (val === undefined || val === null) {
+    this._nativeStorage.getItem(environment.storageLocations.course).then(
+      data => {
+        if (data === undefined || data === null) {
+          this.router.navigateByUrl('/intro', { replaceUrl: true });
+        } else {
+          this.courseTitle = data;
+          this.loadLectures();
+        }
+      },
+      error => {
+        console.log(error);
         this.router.navigateByUrl('/intro', { replaceUrl: true });
       }
-      this.courseTitle = val;
-      this.loadLectures();
-    });
+    );
   }
 
   loadLectures() {
-    this._httpService.getLecturesForCourseTitlePerDay(this.courseTitle).then(l => {
-      this.loadedLectures = l;
-      this.showFromToday();
-    });
+    this._nativeStorage.getItem(environment.storageLocations.lectures).then(
+      data => {
+        this.loadedLectures = data;
+        this.showFromToday();
+      },
+      error => {
+        console.log(error);
+        this.router.navigateByUrl('/intro', { replaceUrl: true });
+      }
+    );
   }
 }

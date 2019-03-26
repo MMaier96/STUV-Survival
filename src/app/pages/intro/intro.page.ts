@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
-import { Utils } from '../../services/utils';
+import { HttpService } from '../../core/http.service';
+import { Utils } from '../../helpers/utils';
 
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-intro',
@@ -20,7 +21,7 @@ export class IntroPage implements OnInit {
 
   constructor(
     public http: HttpService,
-    public storage: Storage,
+    public _nativeStorage: NativeStorage,
     public router: Router,
     public utils: Utils
   ) {
@@ -33,11 +34,16 @@ export class IntroPage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.get(environment.storageLocations.course).then(val => {
-      if (val !== undefined && val !== null) {
-        this.router.navigateByUrl('/lectures', { replaceUrl: true });
+    this._nativeStorage.getItem(environment.storageLocations.course).then(
+      data => {
+        if (data !== undefined && data !== null) {
+          this.router.navigateByUrl('/lectures', { replaceUrl: true });
+        }
+      },
+      error => {
+        console.log(error);
       }
-    });
+    );
   }
   onInput(event: { target: { value: any; }; }) {
     this.resetCourses();
@@ -54,8 +60,15 @@ export class IntroPage implements OnInit {
   }
 
   onSubmit() {
-    this.storage.set(environment.storageLocations.course, this.selectedClass);
-    this.router.navigateByUrl('/lectures', { replaceUrl: true });
+    this._nativeStorage.setItem(environment.storageLocations.course, this.selectedClass)
+    .then(
+      () => {
+        this.router.navigateByUrl('/lectures', { replaceUrl: true });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   resetCourses() {

@@ -1,6 +1,6 @@
 /* Service Provioder */
-import { HttpService } from './services/http.service';
-import { Utils } from './services/utils';
+import { HttpService } from './core/http.service';
+import { Utils } from './helpers/utils';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,26 +16,34 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
+import { StoragesyncService } from './core/storagesync.service';
+import { CoreModule } from './core/core.module';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    CoreModule,
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot(
-      {
-        name: 'survivalDB',
-        driverOrder: ['indexeddb', 'sqlite', 'websql']
-      }
-    ),
+    // IonicStorageModule.forRoot(
+    //   {
+    //     name: 'survivalDB',
+    //     driverOrder: ['indexeddb', 'sqlite', 'websql']
+    //   }
+    // ),
     AppRoutingModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     HttpService,
+    BackgroundMode,
+    StoragesyncService,
+    NativeStorage,
     Utils,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
