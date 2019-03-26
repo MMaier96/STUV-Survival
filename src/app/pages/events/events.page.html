@@ -15,23 +15,24 @@
 <ion-content>
     <ion-item-group>
         <div *ngFor="let dayEvents of events">
-        <ion-item-divider>
-          <ion-label>{{dayEvents.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
-        </ion-item-divider>
-        <ion-card *ngFor="let events of dayEvents.Content">
-        <ion-card-header>
-          <ion-card-title>{{events.Summary}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-label>
-            {{events.Location | multiline}}
-          </ion-label>
-          <ion-label>
-            {{events.Start | date:"HH:mm":"UTC"}} - {{events.End | date:"HH:mm":"UTC"}}
-          </ion-label>
-          <p class="content" [innerHTML]="events.Description | multiline"></p>
-        </ion-card-content>
-        </ion-card>
+          <ion-item-divider>
+            <ion-label>{{dayEvents.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
+          </ion-item-divider>
+         
+          <ion-card class="ion-activatable" *ngFor="let events of dayEvents.Content">
+              <ion-ripple-effect></ion-ripple-effect>
+              <ion-card-header>
+                <ion-card-title>{{events.Summary}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-label>
+                  {{events.Location | multiline}}
+                </ion-label>
+                <ion-label>
+                  {{events.Start | date:"HH:mm":"UTC"}} - {{events.End | date:"HH:mm":"UTC"}}
+                </ion-label>
+              </ion-card-content>
+            </ion-card>
       </div>
       </ion-item-group>
 </ion-content>
