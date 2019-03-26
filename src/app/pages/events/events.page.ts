@@ -3,6 +3,7 @@ import { HttpService } from '../../core/http.service';
 import { Storage } from '@ionic/storage';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 import { MultilinePipe } from '../../pipe/multiline.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -28,7 +29,8 @@ export class EventsPage implements OnInit {
 
   constructor(
     public _httpService: HttpService,
-    public storage: Storage
+    public storage: Storage,
+    private router: Router
   ) {
     /*this.storage.get("selectedClass").then( className => {
       this.lecturesService.getLectures(className.toLowerCase()).subscribe( data => {
@@ -68,4 +70,8 @@ export class EventsPage implements OnInit {
     });
   }
 
+
+  openEventDetails(): void {
+    this.router.navigate(['event-details']);
+  }
 }
