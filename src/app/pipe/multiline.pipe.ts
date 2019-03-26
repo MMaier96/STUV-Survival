@@ -6,8 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MultilinePipe implements PipeTransform {
 
   transform(value: string, args?: any): string {
-    console.log(`The pipe works fine with '${value}'`);
-    return value;
+    console.log(value);
+    const lineBreaks = value.split("\\n").join("<br />");
+    const commas = lineBreaks.split("\\,").join(",");
+    return commas;
   }
 
 }

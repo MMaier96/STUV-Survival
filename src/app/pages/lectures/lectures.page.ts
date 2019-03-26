@@ -42,7 +42,7 @@ export class LecturesPage implements OnInit {
   }
 
   loadLectures() {
-    this._httpService.getLecturesForCourseTitlePerDay('inf16a').then(l => {
+    this._httpService.getLecturesForCourseTitlePerDay('inf16b').then(l => {
       this.loadedLectures = l;
       this.showFromToday();
     });

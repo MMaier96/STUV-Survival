@@ -24,14 +24,12 @@
         </ion-card-header>
         <ion-card-content>
           <ion-label>
-            {{events.Description | multiline}}
+            {{events.Location | multiline}}
           </ion-label>
           <ion-label>
             {{events.Start | date:"HH:mm"}} - {{events.End | date:"HH:mm"}}
           </ion-label>
-          <ion-label>
-            {{events.Location}}
-          </ion-label>
+          <p class="content" [innerHTML]="events.Description | multiline"></p>
         </ion-card-content>
         </ion-card>
       </div>
