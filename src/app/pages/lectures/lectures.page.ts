@@ -61,8 +61,8 @@ export class LecturesPage implements OnInit {
   ngOnInit() {
     this.storage.get(environment.storageLocations.course).then(
       data => {
-        console.log(data);
         if (data === undefined || data === null) {
+          console.log(data);
           this.router.navigateByUrl('/intro', { replaceUrl: true });
         } else {
           this.courseTitle = data;

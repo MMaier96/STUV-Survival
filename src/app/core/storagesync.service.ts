@@ -37,6 +37,7 @@ export class StoragesyncService {
     this._httpService.getStuvEventsPerDay().then(events => {
       this.storage.set(environment.storageLocations.events, events)
         .then(
+          () => console.log('Events saved to storage'),
           error => console.error(error)
         );
     });
