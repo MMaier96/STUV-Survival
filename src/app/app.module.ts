@@ -19,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoragesyncService } from './core/storagesync.service';
 import { CoreModule } from './core/core.module';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,12 +28,12 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    // IonicStorageModule.forRoot(
-    //   {
-    //     name: 'survivalDB',
-    //     driverOrder: ['indexeddb', 'sqlite', 'websql']
-    //   }
-    // ),
+    IonicStorageModule.forRoot(
+      {
+        name: 'survivalDB',
+        driverOrder: ['websql', 'indexeddb', 'sqlite']
+      }
+    ),
     AppRoutingModule
   ],
   providers: [
@@ -43,7 +42,6 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     HttpService,
     BackgroundMode,
     StoragesyncService,
-    NativeStorage,
     Utils,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

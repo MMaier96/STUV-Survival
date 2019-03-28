@@ -33,7 +33,6 @@
     "@ionic/storage": "^2.2.0",
     "cordova-android": "6.3.0",
     "cordova-browser": "5.0.4",
-    "cordova-plugin-background-fetch": "^5.4.1",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-document-viewer": "^0.9.10",
     "cordova-plugin-inappbrowser": "^3.0.0",
@@ -90,7 +89,6 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-background-fetch": {},
       "cordova-plugin-nativestorage": {}
     },
     "platforms": [

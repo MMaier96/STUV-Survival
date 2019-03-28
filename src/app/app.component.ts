@@ -70,6 +70,8 @@ export class AppComponent implements OnInit {
   }
 
   loadEventsAndLecturesIntoStorageContinuously() {
+    this.storagesynservice.syncLectures();
+    this.storagesynservice.syncEvents();
     setInterval(() => {
       this.storagesynservice.syncLectures();
       this.storagesynservice.syncEvents();

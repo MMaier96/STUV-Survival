@@ -5,7 +5,6 @@ import { Utils } from '../../helpers/utils';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-intro',
@@ -21,7 +20,7 @@ export class IntroPage implements OnInit {
 
   constructor(
     public http: HttpService,
-    public _nativeStorage: NativeStorage,
+    public storage: Storage,
     public router: Router,
     public utils: Utils
   ) {
@@ -34,7 +33,7 @@ export class IntroPage implements OnInit {
   }
 
   ngOnInit() {
-    this._nativeStorage.getItem(environment.storageLocations.course).then(
+    this.storage.get(environment.storageLocations.course).then(
       data => {
         if (data !== undefined && data !== null) {
           this.router.navigateByUrl('/lectures', { replaceUrl: true });
@@ -60,7 +59,7 @@ export class IntroPage implements OnInit {
   }
 
   onSubmit() {
-    this._nativeStorage.setItem(environment.storageLocations.course, this.selectedClass)
+    this.storage.set(environment.storageLocations.course, this.selectedClass)
     .then(
       () => {
         this.router.navigateByUrl('/lectures', { replaceUrl: true });

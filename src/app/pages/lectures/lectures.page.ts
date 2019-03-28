@@ -3,8 +3,7 @@ import { HttpService } from '../../core/http.service';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { StorageService } from '../../core/storage.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-lectures',
@@ -34,7 +33,7 @@ export class LecturesPage implements OnInit {
 
   constructor(
     public _httpService: HttpService,
-    public _nativeStorage: NativeStorage,
+    public storage: Storage,
     private router: Router
   ) {
   }
@@ -60,8 +59,9 @@ export class LecturesPage implements OnInit {
   }
 
   ngOnInit() {
-    this._nativeStorage.getItem(environment.storageLocations.course).then(
+    this.storage.get(environment.storageLocations.course).then(
       data => {
+        console.log(data);
         if (data === undefined || data === null) {
           this.router.navigateByUrl('/intro', { replaceUrl: true });
         } else {
@@ -77,7 +77,7 @@ export class LecturesPage implements OnInit {
   }
 
   loadLectures() {
-    this._nativeStorage.getItem(environment.storageLocations.lectures).then(
+    this.storage.get(environment.storageLocations.lectures).then(
       data => {
         this.loadedLectures = data;
         this.showFromToday();
