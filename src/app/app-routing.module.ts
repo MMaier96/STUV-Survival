@@ -25,7 +25,12 @@ const routes: Routes = [
   },
   {
     path: 'cantine',
-    loadChildren: './pages/cantine/cantine.module#CantinePageModule' }
+    loadChildren: './pages/cantine/cantine.module#CantinePageModule' 
+  },
+  { path: 'event-details', 
+    loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule'
+  }
+
 ];
 
 @NgModule({
