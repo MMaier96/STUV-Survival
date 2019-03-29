@@ -63,10 +63,10 @@ export class AppComponent implements OnInit {
     private backgroundMode: BackgroundMode
 
   ) {
-    this.backgroundMode.enable();
-    this.backgroundMode.on('activate').subscribe(() => {
-      this.loadEventsAndLecturesIntoStorageContinuously();
-    });
+    // this.backgroundMode.enable();
+    // this.backgroundMode.on('activate').subscribe(() => {
+    //   this.loadEventsAndLecturesIntoStorageContinuously();
+    // });
   }
 
   loadEventsAndLecturesIntoStorageContinuously() {

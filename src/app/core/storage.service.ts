@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { CalendarEventPerDay } from '../models/calendar-event-per-day';
 import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +9,13 @@ import { environment } from '../../environments/environment';
 export class StorageService {
 
   constructor(
-    private _nativeStorage: NativeStorage
+    private storage: Storage
   ) {
   }
 
   getLectures(): CalendarEventPerDay[] {
     let lectures: CalendarEventPerDay[];
-    this._nativeStorage.getItem(environment.storageLocations.lectures).then(
+    this.storage.get(environment.storageLocations.lectures).then(
       data => {
         lectures = data;
       },
@@ -29,7 +29,7 @@ export class StorageService {
 
   getEvents(): CalendarEventPerDay[] {
     let events: CalendarEventPerDay[];
-    this._nativeStorage.getItem(environment.storageLocations.events).then(
+    this.storage.get(environment.storageLocations.events).then(
       data => {
         events = data;
       },
