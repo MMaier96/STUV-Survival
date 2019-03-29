@@ -14,59 +14,19 @@ export class StoragesyncService {
   ) {
   }
 
-  syncLectures() {
-    this.storage.get(environment.storageLocations.course).then(
-      data => {
-        if (data !== undefined || data !== null) {
-          this._httpService.getLecturesForCourseTitlePerDay(data).then(lectures => {
-            this.storage.set(environment.storageLocations.lectures, lectures)
-              .then(
-                () => console.log('Lectures saved to storage'),
-                error => console.error(error)
-              );
-          });
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+  async syncLecturesAsync(): Promise<void> {
+    const course = await this.storage.get(environment.storageLocations.course);
+    if (course !== undefined && course !== null) {
+      const lectures = await this._httpService.getLecturesForCourseTitlePerDay(course);
+      console.log(lectures);
+      return await this.storage.set(environment.storageLocations.lectures, lectures);
+    } else {
+      return;
+    }
   }
 
-  syncEvents() {
-    this._httpService.getStuvEventsPerDay().then(events => {
-      this.storage.set(environment.storageLocations.events, events)
-        .then(
-          () => console.log('Events saved to storage'),
-          error => console.error(error)
-        );
-    });
+  async syncEventsAsync(): Promise<void> {
+    const events = await this._httpService.getStuvEventsPerDay();
+    return await this.storage.set(environment.storageLocations.events, events);
   }
-
-  // syncLectures() {
-  //   this._nativeStorage.getItem(environment.storageLocations.course).then(
-  //     data => {
-  //       if (data !== undefined || data !== null) {
-  //         this._httpService.getLecturesForCourseTitlePerDay(data).then(lectures => {
-  //           this._nativeStorage.setItem(environment.storageLocations.lectures, lectures)
-  //             .then(
-  //               error => console.error(error)
-  //             );
-  //         });
-  //       }
-  //     },
-  //     error => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
-
-  // syncEvents() {
-  //   this._httpService.getStuvEventsPerDay().then(events => {
-  //     this._nativeStorage.setItem(environment.storageLocations.events, events)
-  //       .then(
-  //         error => console.error(error)
-  //       );
-  //   });
-  // }
 }

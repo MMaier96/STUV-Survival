@@ -36,6 +36,20 @@ export class LecturesPage implements OnInit {
     public storage: Storage,
     private router: Router
   ) {
+    // this.storage.get(environment.storageLocations.course).then(
+    //   data => {
+    //     if (data === undefined || data === null) {
+    //       console.log(data);
+    //       this.router.navigateByUrl('/intro', { replaceUrl: true });
+    //     } else {
+    //       this.courseTitle = data;
+    //     }
+    //   },
+    //   error => {
+    //     console.log(error);
+    //     this.router.navigateByUrl('/intro', { replaceUrl: true });
+    //   }
+    // );
   }
 
   showAll() {
@@ -59,28 +73,16 @@ export class LecturesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.get(environment.storageLocations.course).then(
-      data => {
-        if (data === undefined || data === null) {
-          console.log(data);
-          this.router.navigateByUrl('/intro', { replaceUrl: true });
-        } else {
-          this.courseTitle = data;
-          this.loadLectures();
-        }
-      },
-      error => {
-        console.log(error);
-        this.router.navigateByUrl('/intro', { replaceUrl: true });
-      }
-    );
+    this.loadLectures();
   }
 
   loadLectures() {
     this.storage.get(environment.storageLocations.lectures).then(
       data => {
-        this.loadedLectures = data;
-        this.showFromToday();
+        if (data !== null && data !== undefined) {
+          this.loadedLectures = data;
+          this.showFromToday();
+        }
       },
       error => {
         console.log(error);

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonIcon } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { EventsPage } from './events.page';
@@ -14,7 +14,7 @@ import { PipeModule } from '../../pipe/pipe.module';
     CoreModule,
     CommonModule,
     FormsModule,
-    IonicModule,
+    IonicModule.forRoot(),
     RouterModule.forChild([
       {
         path: '',

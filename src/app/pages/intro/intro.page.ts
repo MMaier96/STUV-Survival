@@ -5,6 +5,7 @@ import { Utils } from '../../helpers/utils';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { StoragesyncService } from '../../core/storagesync.service';
 
 @Component({
   selector: 'app-intro',
@@ -22,7 +23,8 @@ export class IntroPage implements OnInit {
     public http: HttpService,
     public storage: Storage,
     public router: Router,
-    public utils: Utils
+    public utils: Utils,
+    private storageSync: StoragesyncService,
   ) {
     http.getCourses().then(course => {
       const courseList = course.map(e => e.title).sort();
@@ -36,7 +38,11 @@ export class IntroPage implements OnInit {
     this.storage.get(environment.storageLocations.course).then(
       data => {
         if (data !== undefined && data !== null) {
-          this.router.navigateByUrl('/lectures', { replaceUrl: true });
+          this.storageSync.syncEventsAsync();
+          this.storageSync.syncLecturesAsync().then(
+            () => this.router.navigateByUrl('/lectures', { replaceUrl: true }),
+            error => console.error(error)
+          );
         }
       },
       error => {
@@ -47,10 +53,10 @@ export class IntroPage implements OnInit {
   onInput(event: { target: { value: any; }; }) {
     this.resetCourses();
     const val = event.target.value;
-    if (val && val.trim() !== '') {
-      this.filteredCourses = this.filteredCourses.filter(function (courseName) {
-        return courseName.toLowerCase().includes(val.toLowerCase());
-      });
+    if (val && val !== undefined && val.trim() !== '') {
+      this.filteredCourses = this.filteredCourses.filter(courseName =>
+        courseName.toLowerCase().includes(val.toLowerCase())
+      );
     }
   }
 
@@ -62,7 +68,10 @@ export class IntroPage implements OnInit {
     this.storage.set(environment.storageLocations.course, this.selectedClass)
     .then(
       () => {
-        this.router.navigateByUrl('/lectures', { replaceUrl: true });
+        this.storageSync.syncEventsAsync();
+        this.storageSync.syncLecturesAsync().then(
+          () => this.router.navigateByUrl('/lectures', { replaceUrl: true })
+        );
       },
       error => {
         console.log(error);

@@ -4,6 +4,10 @@ import { Storage } from '@ionic/storage';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 import { MultilinePipe } from '../../pipe/multiline.pipe';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { NavComponent } from '@ionic/core';
+import { NavController } from '@ionic/angular';
+import { CalendarEvent } from '../../models/calendar-event';
 
 @Component({
   selector: 'app-events',
@@ -30,13 +34,9 @@ export class EventsPage implements OnInit {
   constructor(
     public _httpService: HttpService,
     public storage: Storage,
-    private router: Router
+    private router: Router,
+    private navController: NavController
   ) {
-    /*this.storage.get("selectedClass").then( className => {
-      this.lecturesService.getLectures(className.toLowerCase()).subscribe( data => {
-        console.log(data); // TODO: convert ics data to usefull json
-      });
-    });*/
   }
 
   showAll() {
@@ -64,14 +64,23 @@ export class EventsPage implements OnInit {
   }
 
   loadEvents() {
-    this._httpService.getStuvEventsPerDay().then(e => {
-      this.loadedEvents = e;
-      this.showFromToday();
-    });
+    this.storage.get(environment.storageLocations.events).then(
+      data => {
+        this.loadedEvents = data;
+        this.showFromToday();
+      },
+      error => {
+        console.log(error);
+        this.router.navigateByUrl('/intro', { replaceUrl: true });
+      }
+    );
   }
 
+  isMultiDayEvent(event: CalendarEvent) {
+    return new Date(event.End).getDate > new Date(event.Start).getDate;
+  }
 
-  openEventDetails(): void {
-    this.router.navigate(['event-details']);
+  openEventDetails(eventID: String): void {
+    this.router.navigate(['event-details', eventID]);
   }
 }

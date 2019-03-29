@@ -14,13 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
     CoreModule,
     CommonModule,
     FormsModule,
-    IonicModule,
-    // IonicStorageModule.forRoot(
-    //   {
-    //     name: 'survivalDB',
-    //     driverOrder: ['indexeddb', 'sqlite', 'websql']
-    //   }
-    // ),
+    IonicModule.forRoot(),
     RouterModule.forChild([
       {
         path: '',

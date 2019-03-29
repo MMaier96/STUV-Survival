@@ -31,7 +31,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
     IonicStorageModule.forRoot(
       {
         name: 'survivalDB',
-        driverOrder: ['websql', 'indexeddb', 'sqlite']
+        driverOrder: ['sqlite', 'websql', 'indexeddb']
       }
     ),
     AppRoutingModule

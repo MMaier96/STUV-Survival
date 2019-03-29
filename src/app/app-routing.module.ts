@@ -25,9 +25,9 @@ const routes: Routes = [
   },
   {
     path: 'cantine',
-    loadChildren: './pages/cantine/cantine.module#CantinePageModule' 
+    loadChildren: './pages/cantine/cantine.module#CantinePageModule'
   },
-  { path: 'event-details', 
+  { path: 'event-details/:id',
     loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule'
   }
 
