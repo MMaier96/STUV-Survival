@@ -17,14 +17,12 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StorageService } from './core/storage.service';
-import { CoreModule } from './core/core.module';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    CoreModule,
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),

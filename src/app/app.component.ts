@@ -4,10 +4,12 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { Storage } from '@ionic/storage';
+
 import { Router } from '@angular/router';
 import { StorageService } from './core/storage.service';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
-
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -59,7 +61,9 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private storageservice: StorageService,
+    private storageService: StorageService,
+
+    public storage: Storage,
     private backgroundMode: BackgroundMode
 
   ) {
@@ -71,9 +75,23 @@ export class AppComponent implements OnInit {
 
   loadEventsAndLecturesIntoStorageContinuously() {
     setInterval(() => {
-      this.storageservice.syncLecturesAsync();
-      this.storageservice.syncLecturesAsync();
+      this.storageService.syncLecturesAsync();
+      this.storageService.syncLecturesAsync();
     }, 900000);
+  }
+
+  checkIfCourseSelected() {
+    this.storage.get(environment.storageLocations.course).then(
+      data => {
+        if (data !== undefined && data !== null) {
+          this.splashScreen.hide();
+          this.router.navigateByUrl('/lectures', { replaceUrl: true });
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnInit() {
@@ -82,8 +100,8 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.checkIfCourseSelected();
       this.statusBar.styleLightContent();
-      this.splashScreen.hide();
       this.loadEventsAndLecturesIntoStorageContinuously();
     });
   }
