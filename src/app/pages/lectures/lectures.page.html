@@ -20,7 +20,7 @@
       <ion-label>{{dayLectures.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
     </ion-item-divider>
     <ion-card *ngFor="let lecture of dayLectures.Content">
-    <ion-card-header>
+    <ion-card-header [style.border-right]="getBorderForText(lecture.Summary)">
       <ion-card-title>{{lecture.Summary}}</ion-card-title>
       <ion-card-subtitle>{{lecture.Description}}</ion-card-subtitle>
     </ion-card-header>

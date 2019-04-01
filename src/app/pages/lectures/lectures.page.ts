@@ -4,6 +4,7 @@ import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Storage } from '@ionic/storage';
+import * as ColorHash from 'color-hash';
 
 @Component({
   selector: 'app-lectures',
@@ -43,6 +44,14 @@ export class LecturesPage {
     this.lectures = this.loadedLectures;
   }
 
+  getBorderForText(text: String): String {
+    const colorHash = new ColorHash({hue: {min: 90, max: 270}});
+    text = text.replace('Vorlesung', '');
+    text = text.replace('Klausur', '');
+    text = text.trim();
+    return '5px solid ' + colorHash.hex(text);
+  }
+
   switchTimeView() {
     if (this.filterButton === this.previousEventButton) {
       this.showAll();
@@ -52,7 +61,6 @@ export class LecturesPage {
       this.filterButton = this.previousEventButton;
     }
   }
-
   showFromToday() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -61,7 +69,7 @@ export class LecturesPage {
 
   loadLectures() {
     this.storage.get(environment.storageLocations.lectures).then(
-      data => {
+      (data: CalendarEventPerDay[]) => {
         if (data !== null && data !== undefined) {
           this.loadedLectures = data;
           this.showFromToday();
