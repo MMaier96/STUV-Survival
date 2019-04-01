@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
-import { StoragesyncService } from './core/storagesync.service';
+import { StorageService } from './core/storage.service';
 import { CoreModule } from './core/core.module';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
@@ -31,7 +31,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
     IonicStorageModule.forRoot(
       {
         name: 'survivalDB',
-        driverOrder: ['sqlite', 'websql', 'indexeddb']
+        driverOrder: ['indexeddb', 'sqlite', 'websql']
       }
     ),
     AppRoutingModule
@@ -41,7 +41,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
     SplashScreen,
     HttpService,
     BackgroundMode,
-    StoragesyncService,
+    StorageService,
     Utils,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

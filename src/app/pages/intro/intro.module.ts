@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { IntroPage } from './intro.page';
-import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   imports: [

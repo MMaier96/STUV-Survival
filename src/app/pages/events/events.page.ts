@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpService } from '../../core/http.service';
 import { Storage } from '@ionic/storage';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
-import { MultilinePipe } from '../../pipe/multiline.pipe';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { NavComponent } from '@ionic/core';
-import { NavController } from '@ionic/angular';
 import { CalendarEvent } from '../../models/calendar-event';
+import { MultilinePipe } from '../../pipe/multiline.pipe';
 
 @Component({
   selector: 'app-events',
   templateUrl: 'events.page.html',
   styleUrls: ['events.page.scss']
 })
-export class EventsPage implements OnInit {
+export class EventsPage {
   private previousEventButton = {
     title: 'Previous Events',
     icon: 'time'
@@ -34,9 +32,9 @@ export class EventsPage implements OnInit {
   constructor(
     public _httpService: HttpService,
     public storage: Storage,
-    private router: Router,
-    private navController: NavController
+    private router: Router
   ) {
+    this.loadEvents();
   }
 
   showAll() {
@@ -59,15 +57,15 @@ export class EventsPage implements OnInit {
     this.events = this.loadedEvents.filter(e => e.Key >= today.getTime());
   }
 
-  ngOnInit() {
-    this.loadEvents();
-  }
-
   loadEvents() {
     this.storage.get(environment.storageLocations.events).then(
       data => {
-        this.loadedEvents = data;
-        this.showFromToday();
+        if (data !== null && data !== undefined) {
+          this.loadedEvents = data;
+          this.showFromToday();
+        } else {
+          console.log('Error: Events null or undefined in storage.');
+        }
       },
       error => {
         console.log(error);

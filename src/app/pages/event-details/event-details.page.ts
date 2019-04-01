@@ -10,7 +10,7 @@ import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
   templateUrl: './event-details.page.html',
   styleUrls: ['./event-details.page.scss'],
 })
-export class EventDetailsPage implements OnInit {
+export class EventDetailsPage {
 
   id: String;
   event: CalendarEvent;
@@ -18,9 +18,11 @@ export class EventDetailsPage implements OnInit {
   constructor(
     private storage: Storage,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    this.resolveEventDetails();
+  }
 
-  ngOnInit() {
+  resolveEventDetails() {
     this.id = this.route.snapshot.paramMap.get('id');
 
     if (this.id !== undefined && this.id !== null) {
@@ -34,5 +36,4 @@ export class EventDetailsPage implements OnInit {
       );
     }
   }
-
 }

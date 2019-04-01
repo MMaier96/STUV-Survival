@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Router } from '@angular/router';
-import { StoragesyncService } from './core/storagesync.service';
+import { StorageService } from './core/storage.service';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private storagesynservice: StoragesyncService,
+    private storageservice: StorageService,
     private backgroundMode: BackgroundMode
 
   ) {
@@ -71,8 +71,8 @@ export class AppComponent implements OnInit {
 
   loadEventsAndLecturesIntoStorageContinuously() {
     setInterval(() => {
-      this.storagesynservice.syncLecturesAsync();
-      this.storagesynservice.syncLecturesAsync();
+      this.storageservice.syncLecturesAsync();
+      this.storageservice.syncLecturesAsync();
     }, 900000);
   }
 
@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.loadEventsAndLecturesIntoStorageContinuously();
     });

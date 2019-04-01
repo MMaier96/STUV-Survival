@@ -11,7 +11,7 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['lectures.page.scss'],
 })
 
-export class LecturesPage implements OnInit {
+export class LecturesPage {
 
   private previousEventButton = {
     title: 'Previous Events',
@@ -36,20 +36,7 @@ export class LecturesPage implements OnInit {
     public storage: Storage,
     private router: Router
   ) {
-    // this.storage.get(environment.storageLocations.course).then(
-    //   data => {
-    //     if (data === undefined || data === null) {
-    //       console.log(data);
-    //       this.router.navigateByUrl('/intro', { replaceUrl: true });
-    //     } else {
-    //       this.courseTitle = data;
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.router.navigateByUrl('/intro', { replaceUrl: true });
-    //   }
-    // );
+    this.loadLectures();
   }
 
   showAll() {
@@ -70,10 +57,6 @@ export class LecturesPage implements OnInit {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     this.lectures = this.loadedLectures.filter(e => e.Key >= today.getTime());
-  }
-
-  ngOnInit() {
-    this.loadLectures();
   }
 
   loadLectures() {

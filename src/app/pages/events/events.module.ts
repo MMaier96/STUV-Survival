@@ -3,15 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, IonIcon } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
+import { PipeModule } from '../../pipe/pipe.module';
 
 import { EventsPage } from './events.page';
-import { CoreModule } from '../../core/core.module';
-import { HttpService } from '../../core/http.service';
-import { PipeModule } from '../../pipe/pipe.module';
 
 @NgModule({
   imports: [
-    CoreModule,
     CommonModule,
     FormsModule,
     IonicModule.forRoot(),
@@ -23,9 +20,6 @@ import { PipeModule } from '../../pipe/pipe.module';
     ]),
     PipeModule
   ],
-  declarations: [EventsPage],
-  providers: [
-    HttpService
-  ]
+  declarations: [EventsPage]
 })
 export class EventsPageModule {}

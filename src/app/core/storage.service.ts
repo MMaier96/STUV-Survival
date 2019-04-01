@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 @Injectable({
   providedIn: 'root'
 })
-export class StoragesyncService {
+export class StorageService {
 
   constructor(
     private _httpService: HttpService,
@@ -18,7 +18,7 @@ export class StoragesyncService {
     const course = await this.storage.get(environment.storageLocations.course);
     if (course !== undefined && course !== null) {
       const lectures = await this._httpService.getLecturesForCourseTitlePerDay(course);
-      console.log(lectures);
+      console.log('Saving lectures to storage.');
       return await this.storage.set(environment.storageLocations.lectures, lectures);
     } else {
       return;
@@ -27,6 +27,7 @@ export class StoragesyncService {
 
   async syncEventsAsync(): Promise<void> {
     const events = await this._httpService.getStuvEventsPerDay();
+    console.log('Saving events to storage.');
     return await this.storage.set(environment.storageLocations.events, events);
   }
 }

@@ -5,7 +5,7 @@ import { Utils } from '../../helpers/utils';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { StoragesyncService } from '../../core/storagesync.service';
+import { StorageService } from '../../core/storage.service';
 
 @Component({
   selector: 'app-intro',
@@ -13,7 +13,7 @@ import { StoragesyncService } from '../../core/storagesync.service';
   styleUrls: ['intro.page.scss'],
 })
 
-export class IntroPage implements OnInit {
+export class IntroPage {
 
   allCourses: any;
   filteredCourses: any;
@@ -24,22 +24,18 @@ export class IntroPage implements OnInit {
     public storage: Storage,
     public router: Router,
     public utils: Utils,
-    private storageSync: StoragesyncService,
+    private storageService: StorageService,
   ) {
-    http.getCourses().then(course => {
-      const courseList = course.map(e => e.title).sort();
-
-      this.allCourses = utils.deepClone(courseList);
-      this.resetCourses();
-    });
+    this.checkIfCourseSelected();
+    this.getCourses();
   }
 
-  ngOnInit() {
+  private checkIfCourseSelected() {
     this.storage.get(environment.storageLocations.course).then(
       data => {
         if (data !== undefined && data !== null) {
-          this.storageSync.syncEventsAsync();
-          this.storageSync.syncLecturesAsync().then(
+          this.storageService.syncEventsAsync();
+          this.storageService.syncLecturesAsync().then(
             () => this.router.navigateByUrl('/lectures', { replaceUrl: true }),
             error => console.error(error)
           );
@@ -50,6 +46,16 @@ export class IntroPage implements OnInit {
       }
     );
   }
+
+  private getCourses() {
+    this.http.getCourses().then(course => {
+      const courseList = course.map(e => e.title).sort();
+
+      this.allCourses = this.utils.deepClone(courseList);
+      this.resetCourses();
+    });
+  }
+
   onInput(event: { target: { value: any; }; }) {
     this.resetCourses();
     const val = event.target.value;
@@ -68,8 +74,8 @@ export class IntroPage implements OnInit {
     this.storage.set(environment.storageLocations.course, this.selectedClass)
     .then(
       () => {
-        this.storageSync.syncEventsAsync();
-        this.storageSync.syncLecturesAsync().then(
+        this.storageService.syncEventsAsync();
+        this.storageService.syncLecturesAsync().then(
           () => this.router.navigateByUrl('/lectures', { replaceUrl: true })
         );
       },

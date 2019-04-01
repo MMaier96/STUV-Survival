@@ -5,13 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { LecturesPage } from './lectures.page';
-import { CoreModule } from '../../core/core.module';
-import { HttpService } from '../../core/http.service';
-import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   imports: [
-    CoreModule,
     CommonModule,
     FormsModule,
     IonicModule.forRoot(),
@@ -22,9 +18,6 @@ import { IonicStorageModule } from '@ionic/storage';
       }
     ])
   ],
-  declarations: [LecturesPage],
-  providers: [
-    HttpService
-  ]
+  declarations: [LecturesPage]
 })
 export class LecturesPageModule {}
