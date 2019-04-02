@@ -36,6 +36,7 @@
     "cordova": "^9.0.0",
     "cordova-android": "^8.0.0",
     "cordova-browser": "5.0.4",
+    "cordova-ios": "5.0.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-document-viewer": "^0.9.10",
     "cordova-plugin-inappbrowser": "^3.0.0",
@@ -97,7 +98,8 @@
     },
     "platforms": [
       "browser",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
