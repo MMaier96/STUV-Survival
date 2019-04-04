@@ -11,6 +11,10 @@ ion-card-title.hydrated {
 ion-card-content {
     padding-top: 0;
 }
+ion-card {
+    position: relative;
+    overflow: hidden;
+}
 .sc-ion-card-md-h {
     padding: 0em 0 0.5em 0;
     margin: 1em 5% 1em 5%;
@@ -18,6 +22,7 @@ ion-card-content {
     font-size: 14px;
     -webkit-box-shadow: 0 1.5px 0.5px -1px rgba(0,0,0,.1), 0 0.5px 1px 0 rgba(0,0,0,.08), 0 0.5px 2px 0 rgba(0,0,0,.08);
     box-shadow: 0 1.5px 0.5px -1px rgba(0,0,0,.1), 0 0.5px 1px 0 rgba(0,0,0,.08), 0 0.5px 2px 0 rgba(0,0,0,.08);
+    
 }
 ion-item-divider.item.hydrated {
     margin-top: 30px;

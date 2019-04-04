@@ -16,14 +16,14 @@
 
 <ion-content padding>
 
-  <ion-item-group *ngIf="lecturesLoaded">
+  <ion-item-group>
 
-    <div *ngFor="let dayLectures of lectures ">
+    <div *ngFor="let dayLectures of lectures">
       <ion-item-divider>
         <ion-label>{{dayLectures.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
       </ion-item-divider>
 
-      <ion-card *ngFor="let lecture of dayLectures.Content" >
+      <ion-card *ngFor="let lecture of dayLectures.Content">
         <ion-card-header [style.border-right]="getBorderForText(lecture.Summary)">
           <ion-item no-padding>
             <ion-card-title>

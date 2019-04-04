@@ -1,20 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../core/http.service';
 import { Storage } from '@ionic/storage';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { CalendarEvent } from '../../models/calendar-event';
-import { MultilinePipe } from '../../pipe/multiline.pipe';
 import * as ColorHash from 'color-hash';
-import { query } from '@angular/core/src/render3/query';
 
 @Component({
   selector: 'app-events',
   templateUrl: 'events.page.html',
   styleUrls: ['events.page.scss']
 })
-export class EventsPage {
+export class EventsPage implements OnInit {
   private previousEventButton = {
     title: 'Previous Events',
     icon: 'time'
@@ -36,6 +34,16 @@ export class EventsPage {
     public storage: Storage,
     private router: Router
   ) {
+    if (this.events === null) {
+      this.router.events.subscribe(e => {
+        if (e instanceof NavigationEnd) {
+          this.loadEvents();
+        }
+      });
+    }
+  }
+
+  ngOnInit() {
     this.loadEvents();
   }
 

@@ -32,8 +32,6 @@ export class LecturesPage implements OnInit {
 
   lectures: CalendarEventPerDay[];
 
-  lecturesLoaded: Boolean = false;
-
   constructor(
     public _httpService: HttpService,
     public storage: Storage,
@@ -83,7 +81,6 @@ export class LecturesPage implements OnInit {
         if (data !== null && data !== undefined) {
           this.loadedLectures = data;
           this.showFromToday();
-          this.lecturesLoaded = true;
           console.log('Lectures loaded');
         } else {
           this.router.navigateByUrl('/intro', { replaceUrl: true });
