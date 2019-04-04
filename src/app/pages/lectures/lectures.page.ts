@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../core/http.service';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Storage } from '@ionic/storage';
 import * as ColorHash from 'color-hash';
@@ -12,7 +12,7 @@ import * as ColorHash from 'color-hash';
   styleUrls: ['lectures.page.scss'],
 })
 
-export class LecturesPage {
+export class LecturesPage implements OnInit {
 
   private previousEventButton = {
     title: 'Previous Events',
@@ -32,11 +32,21 @@ export class LecturesPage {
 
   lectures: CalendarEventPerDay[];
 
+  lecturesLoaded: Boolean = false;
+
   constructor(
     public _httpService: HttpService,
     public storage: Storage,
     private router: Router
   ) {
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        this.loadLectures();
+      }
+    });
+  }
+
+  ngOnInit() {
     this.loadLectures();
   }
 
@@ -73,6 +83,10 @@ export class LecturesPage {
         if (data !== null && data !== undefined) {
           this.loadedLectures = data;
           this.showFromToday();
+          this.lecturesLoaded = true;
+          console.log('Lectures loaded');
+        } else {
+          this.router.navigateByUrl('/intro', { replaceUrl: true });
         }
       },
       error => {

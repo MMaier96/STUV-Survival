@@ -76,7 +76,7 @@ export class IntroPage {
       () => {
         this.storageService.syncEventsAsync();
         this.storageService.syncLecturesAsync().then(
-          () => this.router.navigateByUrl('/lectures', { replaceUrl: true })
+          () => this.router.navigate(['lectures'])
         );
       },
       error => {
