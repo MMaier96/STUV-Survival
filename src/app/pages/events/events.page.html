@@ -21,27 +21,27 @@
         <ion-label color="secondary">{{dayEvents.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
       </ion-item-divider>
 
-      <ion-card class="ion-activatable" (click)="openEventDetails(events.UID)" *ngFor="let events of dayEvents.Content">
+      <ion-card class="ion-activatable" (click)="openEventDetails(event)" *ngFor="let event of dayEvents.Content">
         <ion-ripple-effect></ion-ripple-effect>
-        <ion-card-header [style.border-right]="getBorderForText(events.Summary)">
+        <ion-card-header [style.border-right]="getBorderForText(event.Summary)">
           <ion-item no-padding>
             <ion-card-title>
-              {{events.Summary}}
+              {{event.Summary}}
             </ion-card-title>
           </ion-item>
         </ion-card-header>
         <ion-card-content>
           <ion-item-group>
-            <ion-item *ngIf='events.Start !== "" && events.End !== ""' no-padding>
-              <ion-icon color="tertiary" size="large" slot="start" name='time'></ion-icon>
+            <ion-item *ngIf='event.Start !== "" && event.End !== ""' no-padding>
+              <ion-icon color="tertiary" slot="start" name='time'></ion-icon>
               <ion-label>
-                {{events.Start | date:"HH:mm":"UTC"}} - {{events.End | date:"HH:mm":"UTC"}}
+                {{event.Start | date:"HH:mm":"UTC"}} - {{event.End | date:"HH:mm":"UTC"}}
               </ion-label>
             </ion-item>
-            <ion-item *ngIf='events.Location !== ""' no-padding>
-              <ion-icon color="tertiary" size="large" slot="start" name='pin'></ion-icon>
+            <ion-item *ngIf='event.Location !== ""' no-padding>
+              <ion-icon color="tertiary" slot="start" name='pin'></ion-icon>
               <ion-label>
-                {{events.Location | multiline}}
+                {{event.Location | multiline}}
               </ion-label>
             </ion-item>
           </ion-item-group>

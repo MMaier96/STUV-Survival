@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { environment } from '../../../environments/environment.prod';
 import { ActivatedRoute } from '@angular/router';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
+import * as ColorHash from 'color-hash';
 
 @Component({
   selector: 'app-event-details',
@@ -16,24 +17,13 @@ export class EventDetailsPage {
   event: CalendarEvent;
 
   constructor(
-    private storage: Storage,
     private route: ActivatedRoute
   ) {
     this.resolveEventDetails();
   }
-
   resolveEventDetails() {
-    this.id = this.route.snapshot.paramMap.get('id');
-
-    if (this.id !== undefined && this.id !== null) {
-      this.storage.get(environment.storageLocations.events).then(
-        (data: CalendarEventPerDay[]) => {
-          this.event = data.flatMap(eventPerDay => eventPerDay.Content).find(event => event.UID === this.id);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
+    this.route.queryParamMap.subscribe(queryParams => {
+      this.event = JSON.parse(queryParams.get('event'));
+    });
   }
 }

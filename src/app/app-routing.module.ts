@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/intro',
+    redirectTo: '/lectures',
     pathMatch: 'full'
   },
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
     loadChildren: './pages/cantine/cantine.module#CantinePageModule'
   },
   {
-    path: 'event-details/:id',
+    path: 'event-details',
     loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule'
   },
   {

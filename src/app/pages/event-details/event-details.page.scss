@@ -1,0 +1,29 @@
+[padding] {
+    --padding-top: var(--ion-padding, 0px);
+}
+
+ion-card-subtitle.hydrated{
+    position: absolute;
+    right: 15px;
+    bottom: -40px;
+}
+
+ion-card-title.hydrated {
+    font-size: 24px;
+    padding: 0.7em 0.2em;
+}
+
+ion-card-content {
+    padding-top: 0;
+}
+
+p {
+    padding: 1.5em;
+    white-space: pre-line;
+}
+
+.sc-ion-card-md-h {
+    font-size: 14px;
+    -webkit-box-shadow: 0 1.5px 0.5px -1px rgba(0,0,0,.1), 0 0.5px 1px 0 rgba(0,0,0,.08), 0 0.5px 2px 0 rgba(0,0,0,.08);
+    box-shadow: 0 1.5px 0.5px -1px rgba(0,0,0,.1), 0 0.5px 1px 0 rgba(0,0,0,.08), 0 0.5px 2px 0 rgba(0,0,0,.08);
+}

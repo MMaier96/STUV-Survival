@@ -11,14 +11,23 @@
 
 <ion-content>
   <ion-list>
-    <ion-item (click)="changeCourse()">
-      <ion-icon name="book" slot="start"></ion-icon>
-      <ion-label>
-          {{ selectedClass }}
-      </ion-label>
-      <ion-button color="primary" (click)="changeCourse()" slot="end">
-        <ion-icon name="create" slot="end"></ion-icon>
-      </ion-button>
-    </ion-item>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Course
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+          <ion-item (click)="changeCourse()">
+              <ion-icon name="book" slot="start"></ion-icon>
+              <ion-label>
+                  {{ selectedClass }}
+              </ion-label>
+              <ion-button color="primary" (click)="changeCourse()" slot="end">
+                <ion-icon name="create" slot="end"></ion-icon>
+              </ion-button>
+            </ion-item>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 </ion-content>

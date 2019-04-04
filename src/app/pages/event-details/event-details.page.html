@@ -1,12 +1,39 @@
 <ion-header>
   <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-    <ion-title>{{event?.Summary}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Event</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  {{event?.Description}}
+<ion-content *ngIf="event !== null">
+  <ion-card>
+    <ion-ripple-effect></ion-ripple-effect>
+    <ion-card-header>
+      <ion-item>
+        <ion-card-title>
+          {{event.Summary}}
+        </ion-card-title>
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content *ngIf='event !== undefined'>
+      <ion-item-group>
+        <ion-item *ngIf='event.Start !== "" && event.End !== ""' no-padding>
+          <ion-icon color="tertiary" size="large" slot="start" name='time'></ion-icon>
+          <ion-label>
+            {{event.Start | date:"HH:mm":"UTC"}} - {{event.End | date:"HH:mm":"UTC"}}
+          </ion-label>
+        </ion-item>
+        <ion-item *ngIf='event.Location !== ""' no-padding>
+          <ion-icon color="tertiary" size="large" slot="start" name='pin'></ion-icon>
+            {{event.Location | multiline}}
+        </ion-item>
+      </ion-item-group>
+      <p>{{event.Description | multiline}}</p>
+    </ion-card-content>
+
+  </ion-card>
+
 </ion-content>

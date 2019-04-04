@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { CalendarEvent } from '../../models/calendar-event';
 import { MultilinePipe } from '../../pipe/multiline.pipe';
 import * as ColorHash from 'color-hash';
+import { query } from '@angular/core/src/render3/query';
 
 @Component({
   selector: 'app-events',
@@ -40,12 +41,6 @@ export class EventsPage {
 
   showAll() {
     this.events = this.loadedEvents;
-  }
-
-  getColorForText(text: String): String {
-    const colorHash = new ColorHash({hue: {min: 90, max: 270}});
-    text = text.trim();
-    return colorHash.hex(text);
   }
 
   getBorderForText(text: String): String {
@@ -91,7 +86,7 @@ export class EventsPage {
     return new Date(event.End).getDate > new Date(event.Start).getDate;
   }
 
-  openEventDetails(eventID: String): void {
-    this.router.navigate(['event-details', eventID]);
+  openEventDetails(event: CalendarEvent): void {
+    this.router.navigate(['event-details'], { queryParams: { event: JSON.stringify(event) }});
   }
 }

@@ -1,9 +1,9 @@
 ion-content {
-  height: 100vh;
+  height: 90vh;
 }
 ion-grid {
   color: white;
-  height: 100vh;
+  height: 90vh;
 }
 ion-searchbar {
   height: 5vh;
@@ -13,7 +13,7 @@ ion-searchbar {
 ion-infinite-scroll.infinite-scroll-enabled.hydrated {
   margin: 1vh 0 1vh 0;
   padding: 0;
-  height: 89vh;
+  height: 79vh;
   overflow: scroll;
 }
 ion-infinite-scroll-content.infinite-scroll-content.infinite-scroll-content-md.hydrated {
