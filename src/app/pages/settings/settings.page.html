@@ -1,14 +1,24 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Settings
+      Settings <ion-icon slot="start" name="settings"></ion-icon>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item (click)="changeCourse()">
+      <ion-icon name="book" slot="start"></ion-icon>
+      <ion-label>
+          {{ selectedClass }}
+      </ion-label>
+      <ion-button color="primary" (click)="changeCourse()" slot="end">
+        <ion-icon name="create" slot="end"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

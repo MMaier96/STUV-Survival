@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -7,32 +7,47 @@
       Events
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button color="light" (click)="switchTimeView()"><ion-icon [name]="filterButton.icon"></ion-icon></ion-button>
+      <ion-button color="light" (click)="switchTimeView()">
+        <ion-icon [name]="filterButton.icon"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-item-group>
-        <div *ngFor="let dayEvents of events">
-          <ion-item-divider>
-            <ion-label>{{dayEvents.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
-          </ion-item-divider>
-         
-          <ion-card class="ion-activatable" (click)="openEventDetails(events.UID)" *ngFor="let events of dayEvents.Content">
-              <ion-ripple-effect></ion-ripple-effect>
-              <ion-card-header>
-                <ion-card-title>{{events.Summary}}</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <ion-label>
-                  {{events.Location | multiline}}
-                </ion-label>
-                <ion-label>
-                  {{events.Start | date:"HH:mm":"UTC"}} - {{events.End | date:"HH:mm":"UTC"}}
-                </ion-label>
-              </ion-card-content>
-            </ion-card>
-      </div>
-      </ion-item-group>
+  <ion-item-group>
+    <div *ngFor="let dayEvents of events">
+      <ion-item-divider>
+        <ion-label color="secondary">{{dayEvents.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
+      </ion-item-divider>
+
+      <ion-card class="ion-activatable" (click)="openEventDetails(events.UID)" *ngFor="let events of dayEvents.Content">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-card-header [style.border-right]="getBorderForText(events.Summary)">
+          <ion-item no-padding>
+            <ion-card-title>
+              {{events.Summary}}
+            </ion-card-title>
+          </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item-group>
+            <ion-item *ngIf='events.Start !== "" && events.End !== ""' no-padding>
+              <ion-icon color="tertiary" size="large" slot="start" name='time'></ion-icon>
+              <ion-label>
+                {{events.Start | date:"HH:mm":"UTC"}} - {{events.End | date:"HH:mm":"UTC"}}
+              </ion-label>
+            </ion-item>
+            <ion-item *ngIf='events.Location !== ""' no-padding>
+              <ion-icon color="tertiary" size="large" slot="start" name='pin'></ion-icon>
+              <ion-label>
+                {{events.Location | multiline}}
+              </ion-label>
+            </ion-item>
+          </ion-item-group>
+        </ion-card-content>
+
+      </ion-card>
+    </div>
+  </ion-item-group>
 </ion-content>

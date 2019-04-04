@@ -1,0 +1,24 @@
+ion-content {
+  height: 100vh;
+}
+ion-grid {
+  color: white;
+  height: 100vh;
+}
+ion-searchbar {
+  height: 5vh;
+  margin: 1vh 0 0 0;
+  padding: 0 0 0 0;
+}
+ion-infinite-scroll.infinite-scroll-enabled.hydrated {
+  margin: 1vh 0 1vh 0;
+  padding: 0;
+  height: 89vh;
+  overflow: scroll;
+}
+ion-infinite-scroll-content.infinite-scroll-content.infinite-scroll-content-md.hydrated {
+  background: white;
+}
+ion-infinite-scroll.infinite-scroll-enabled.hydrated {
+  background: white;
+}

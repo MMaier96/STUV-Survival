@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { CalendarEvent } from '../../models/calendar-event';
 import { MultilinePipe } from '../../pipe/multiline.pipe';
+import * as ColorHash from 'color-hash';
 
 @Component({
   selector: 'app-events',
@@ -39,6 +40,18 @@ export class EventsPage {
 
   showAll() {
     this.events = this.loadedEvents;
+  }
+
+  getColorForText(text: String): String {
+    const colorHash = new ColorHash({hue: {min: 90, max: 270}});
+    text = text.trim();
+    return colorHash.hex(text);
+  }
+
+  getBorderForText(text: String): String {
+    const colorHash = new ColorHash({hue: {min: 90, max: 270}});
+    text = text.trim();
+    return '5px solid ' + colorHash.hex(text);
   }
 
   switchTimeView() {

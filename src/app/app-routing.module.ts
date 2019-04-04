@@ -27,9 +27,16 @@ const routes: Routes = [
     path: 'cantine',
     loadChildren: './pages/cantine/cantine.module#CantinePageModule'
   },
-  { path: 'event-details/:id',
+  {
+    path: 'event-details/:id',
     loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule'
+  },
+  {
+    path: 'courseselection',
+    loadChildren: './pages/settings/courseselection/courseselection.module#CourseselectionPageModule'
   }
+
+
 
 ];
 
@@ -37,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
