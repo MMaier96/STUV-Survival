@@ -21,7 +21,8 @@
         <ion-label color="secondary">{{dayEvents.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
       </ion-item-divider>
 
-      <ion-card (click)="openEventDetails(event)" *ngFor="let event of dayEvents.Content">
+      <ion-card class="ion-activatable" (click)="openEventDetails(event)" *ngFor="let event of dayEvents.Content">
+        <ion-ripple-effect></ion-ripple-effect>
         <ion-card-header [style.border-right]="getBorderForText(event.Summary)">
           <ion-item no-padding>
             <ion-card-title>
