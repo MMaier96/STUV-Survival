@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../core/http.service';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Storage } from '@ionic/storage';
 import * as ColorHash from 'color-hash';
@@ -26,22 +26,17 @@ export class LecturesPage implements OnInit {
 
   filterButton = this.previousEventButton;
 
-  courseTitle: String;
+  courseTitle: String = null;
 
-  loadedLectures: CalendarEventPerDay[];
+  loadedLectures: CalendarEventPerDay[] = null;
 
-  lectures: CalendarEventPerDay[];
+  lectures: CalendarEventPerDay[] = null;
 
   constructor(
     public _httpService: HttpService,
     public storage: Storage,
     private router: Router
   ) {
-    this.router.events.subscribe(e => {
-      if (e instanceof NavigationEnd) {
-        this.loadLectures();
-      }
-    });
   }
 
   ngOnInit() {
@@ -53,7 +48,7 @@ export class LecturesPage implements OnInit {
   }
 
   getBorderForText(text: String): String {
-    const colorHash = new ColorHash({hue: {min: 90, max: 270}});
+    const colorHash = new ColorHash({ hue: { min: 90, max: 270 } });
     text = text.replace('Vorlesung', '');
     text = text.replace('Klausur', '');
     text = text.trim();
@@ -76,14 +71,15 @@ export class LecturesPage implements OnInit {
   }
 
   loadLectures() {
+    console.log('Loading lectures');
     this.storage.get(environment.storageLocations.lectures).then(
       (data: CalendarEventPerDay[]) => {
-        if (data !== null && data !== undefined) {
+        if (data === null) {
+          this.router.navigateByUrl('/intro', { replaceUrl: true });
+        } else {
           this.loadedLectures = data;
           this.showFromToday();
           console.log('Lectures loaded');
-        } else {
-          this.router.navigateByUrl('/intro', { replaceUrl: true });
         }
       },
       error => {

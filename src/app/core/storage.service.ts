@@ -9,25 +9,32 @@ import { Storage } from '@ionic/storage';
 export class StorageService {
 
   constructor(
-    private _httpService: HttpService,
+    private httpService: HttpService,
     private storage: Storage
   ) {
   }
 
-  async syncLecturesAsync(): Promise<void> {
-    const course = await this.storage.get(environment.storageLocations.course);
-    if (course !== undefined && course !== null) {
-      const lectures = await this._httpService.getLecturesForCourseTitlePerDay(course);
-      console.log('Saving lectures to storage.');
-      return await this.storage.set(environment.storageLocations.lectures, lectures);
-    } else {
-      return;
-    }
+  syncLectures() {
+    this.storage.get(environment.storageLocations.course).then(
+      course => {
+        if (course === undefined && course === null) {
+          this.httpService.getLecturesForCourseTitlePerDay(course).subscribe(
+            data => {
+              console.log('Saving lectures to storage.');
+              this.storage.set(environment.storageLocations.lectures, data);
+            }
+          );
+        }
+      }
+    );
   }
 
-  async syncEventsAsync(): Promise<void> {
-    const events = await this._httpService.getStuvEventsPerDay();
-    console.log('Saving events to storage.');
-    return await this.storage.set(environment.storageLocations.events, events);
+  syncEvents() {
+    this.httpService.getStuvEventsPerDay().subscribe(
+      data => {
+        console.log('Saving events to storage.');
+        this.storage.set(environment.storageLocations.events, data);
+      }
+    );
   }
 }

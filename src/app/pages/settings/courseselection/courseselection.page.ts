@@ -15,15 +15,17 @@ export class CourseselectionPage implements OnInit {
 
   allCourses: any;
   filteredCourses: any;
-  selectedClass: any;
+  selectedClass: string = null;
 
   constructor(
-    private http: HttpService,
+    private httpService: HttpService,
     public storage: Storage,
     public router: Router,
-    public utils: Utils,
-    private storageService: StorageService,
+    public utils: Utils
   ) {
+  }
+
+  ngOnInit() {
     this.getCourses();
     this.storage.get(environment.storageLocations.course).then(
       course => {
@@ -33,16 +35,14 @@ export class CourseselectionPage implements OnInit {
     );
   }
 
-  ngOnInit() {
-  }
-
   private getCourses() {
-    this.http.getCourses().then(course => {
-      const courseList = course.map(e => e.title).sort();
-
-      this.allCourses = this.utils.deepClone(courseList);
-      this.resetCourses();
-    });
+    this.httpService.getCourses().subscribe(
+      data => {
+        const courseList = data.map(e => e.title).sort();
+        this.allCourses = this.utils.deepClone(courseList);
+        this.resetCourses();
+      }
+    );
   }
 
   onInput(event: { target: { value: any; }; }) {
@@ -60,9 +60,23 @@ export class CourseselectionPage implements OnInit {
     this.storage.set(environment.storageLocations.course, this.selectedClass)
       .then(
         () => {
-          this.storageService.syncEventsAsync();
-          this.storageService.syncLecturesAsync();
-          this.router.navigateByUrl('/settings', { replaceUrl: true });
+          this.httpService.getStuvEventsPerDay().subscribe(
+            data => {
+              console.log('Saving events to storage.');
+              this.storage.set(environment.storageLocations.events, data);
+            }
+          );
+          this.httpService.getLecturesForCourseTitlePerDay(this.selectedClass).subscribe(
+            data => {
+              console.log('Saving lectures to storage.');
+              this.storage.set(environment.storageLocations.lectures, data).then(
+                () => this.router.navigateByUrl('/settings', { replaceUrl: true })
+              );
+            },
+            error => {
+              console.log(error);
+            }
+          );
         },
         error => {
           console.log(error);
@@ -74,9 +88,23 @@ export class CourseselectionPage implements OnInit {
     this.storage.set(environment.storageLocations.course, this.selectedClass)
       .then(
         () => {
-          this.storageService.syncEventsAsync();
-          this.storageService.syncLecturesAsync();
-          this.router.navigateByUrl('/settings', { replaceUrl: true });
+          this.httpService.getStuvEventsPerDay().subscribe(
+            data => {
+              console.log('Saving events to storage.');
+              this.storage.set(environment.storageLocations.events, data);
+            }
+          );
+          this.httpService.getLecturesForCourseTitlePerDay(this.selectedClass).subscribe(
+            data => {
+              console.log('Saving lectures to storage.');
+              this.storage.set(environment.storageLocations.lectures, data).then(
+                () => this.router.navigateByUrl('/settings', { replaceUrl: true })
+              );
+            },
+            error => {
+              console.log(error);
+            }
+          );
         },
         error => {
           console.log(error);

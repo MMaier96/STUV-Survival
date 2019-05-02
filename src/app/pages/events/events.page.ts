@@ -25,22 +25,15 @@ export class EventsPage implements OnInit {
 
   filterButton = this.previousEventButton;
 
-  loadedEvents: CalendarEventPerDay[];
+  loadedEvents: CalendarEventPerDay[] = null;
 
-  events: CalendarEventPerDay[];
+  events: CalendarEventPerDay[] = null;
 
   constructor(
     public _httpService: HttpService,
     public storage: Storage,
     private router: Router
   ) {
-    if (this.events === null) {
-      this.router.events.subscribe(e => {
-        if (e instanceof NavigationEnd) {
-          this.loadEvents();
-        }
-      });
-    }
   }
 
   ngOnInit() {
@@ -74,6 +67,7 @@ export class EventsPage implements OnInit {
   }
 
   loadEvents() {
+    console.log('Loading events!');
     this.storage.get(environment.storageLocations.events).then(
       data => {
         if (data !== null && data !== undefined) {

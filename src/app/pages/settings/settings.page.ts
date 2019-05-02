@@ -9,16 +9,11 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['settings.page.scss']
 })
 export class SettingsPage implements OnInit {
-  selectedClass: any;
+  selectedClass: string = null;
   constructor(
     private storage: Storage,
     private router: Router
   ) {
-    this.router.events.subscribe(e => {
-      if (e instanceof NavigationEnd) {
-        this.loadCourse();
-      }
-    });
   }
 
   ngOnInit() {

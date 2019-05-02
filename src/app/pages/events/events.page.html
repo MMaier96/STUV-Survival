@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="events">
   <ion-item-group>
     <div *ngFor="let dayEvents of events">
       <ion-item-divider>

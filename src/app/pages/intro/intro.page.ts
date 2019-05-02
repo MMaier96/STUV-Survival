@@ -17,10 +17,10 @@ export class IntroPage {
 
   allCourses: any;
   filteredCourses: any;
-  selectedClass: any;
+  selectedClass: string = null;
 
   constructor(
-    public http: HttpService,
+    public httpService: HttpService,
     public storage: Storage,
     public router: Router,
     public utils: Utils,
@@ -32,12 +32,33 @@ export class IntroPage {
 
   private checkIfCourseSelected() {
     this.storage.get(environment.storageLocations.course).then(
-      data => {
-        if (data !== undefined && data !== null) {
-          this.storageService.syncEventsAsync();
-          this.storageService.syncLecturesAsync().then(
-            () => this.router.navigateByUrl('/lectures', { replaceUrl: true }),
-            error => console.error(error)
+      course => {
+        if (course !== undefined && course !== null) {
+          this.httpService.getStuvEventsPerDay().subscribe(
+            data => {
+              console.log('Saving events to storage.');
+              this.storage.set(environment.storageLocations.events, data);
+            },
+            error => {
+              console.log(error);
+            }
+          );
+          this.httpService.getLecturesForCourseTitlePerDay(this.selectedClass).subscribe(
+            data => {
+              console.log('Saving lectures to storage.');
+              this.storage.set(environment.storageLocations.lectures, data).then(
+                () => {
+                  console.log('Lectures saved to storage.');
+                  this.router.navigateByUrl('/lectures', { replaceUrl: true });
+                },
+                error => {
+                  console.log(error);
+                }
+              );
+            },
+            error => {
+              console.log(error);
+            }
           );
         }
       },
@@ -48,12 +69,13 @@ export class IntroPage {
   }
 
   private getCourses() {
-    this.http.getCourses().then(course => {
-      const courseList = course.map(e => e.title).sort();
-
-      this.allCourses = this.utils.deepClone(courseList);
-      this.resetCourses();
-    });
+    this.httpService.getCourses().subscribe(
+      data => {
+        const courseList = data.map(e => e.title).sort();
+        this.allCourses = this.utils.deepClone(courseList);
+        this.resetCourses();
+      }
+    );
   }
 
   onInput(event: { target: { value: any; }; }) {
@@ -70,19 +92,42 @@ export class IntroPage {
     this.selectedClass = selected;
   }
 
-  onSubmit() {
-    this.storage.set(environment.storageLocations.course, this.selectedClass)
-    .then(
-      () => {
-        this.storageService.syncEventsAsync();
-        this.storageService.syncLecturesAsync().then(
-          () => this.router.navigate(['lectures'])
-        );
+  loadEvents() {
+    this.httpService.getStuvEventsPerDay().subscribe(
+      data => {
+        console.log('Saving events to storage.');
+        this.storage.set(environment.storageLocations.events, data);
+        console.log('Events saved to storage.');
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  onSubmit() {
+    this.storage.set(environment.storageLocations.course, this.selectedClass)
+      .then(
+        () => {
+          this.httpService.getLecturesForCourseTitlePerDay(this.selectedClass).subscribe(
+            data => {
+              console.log('Saving lectures to storage.');
+              this.storage.set(environment.storageLocations.lectures, data).then(
+                () => {
+                  console.log('Lectures saved to storage.');
+                  this.router.navigateByUrl('/lectures');
+                }
+              );
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   resetCourses() {
