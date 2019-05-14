@@ -26,4 +26,11 @@ export class EventDetailsPage {
       this.event = JSON.parse(queryParams.get('event'));
     });
   }
+  isMultiDayEvent(event: CalendarEvent) {
+    const startDate = new Date(event.Start);
+    startDate.setHours(0, 0, 0, 0);
+    const endDate = new Date(event.End);
+    endDate.setHours(0, 0, 0, 0);
+    return endDate > startDate;
+  }
 }

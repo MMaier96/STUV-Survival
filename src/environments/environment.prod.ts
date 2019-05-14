@@ -5,6 +5,5 @@ export const environment = {
     course: 'SelectedCourse',
     lectures: 'Lectures',
     events: 'Events'
-  },
-  displayedEventDays: 7
+  }
 };

@@ -18,50 +18,44 @@
 
   <ion-item-group>
 
-    <div *ngFor="let dayLectures of lectures">
-      <ion-item-divider>
-        <ion-label>{{dayLectures.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
-      </ion-item-divider>
-
-      <ion-card *ngFor="let lecture of dayLectures.Content">
-        <ion-card-header [style.border-right]="getBorderForText(lecture.Summary)">
-          <ion-item no-padding>
-            <ion-card-title>
-              {{lecture.Summary}}
-            </ion-card-title>
-          </ion-item>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item-group>
-            <ion-item *ngIf='lecture.Start !== "" && lecture.End !== ""' no-padding>
-              <ion-icon size="small" color="tertiary" slot="start" name='time'></ion-icon>
-              <ion-label no-padding>
-                {{lecture.Start | date:"HH:mm":"UTC"}} - {{lecture.End | date:"HH:mm":"UTC"}}
-              </ion-label>
+    <ion-virtual-scroll [items]="lectures" [approxItemHeight]="'600px'">
+      <div *virtualItem="let dayLectures">
+        <ion-item-divider>
+          <ion-label>{{dayLectures.Key | date:"E - dd.MM.yy":"UTC"}}</ion-label>
+        </ion-item-divider>
+        <ion-card *ngFor="let lecture of dayLectures.Content">
+          <ion-card-header [style.border-right]="getBorderForText(lecture.Summary)">
+            <ion-item no-padding>
+              <ion-card-title>
+                {{lecture.Summary}}
+              </ion-card-title>
             </ion-item>
-            <ion-item *ngIf='lecture.Location !== "" && lecture.Location !== undefined' no-padding>
-              <ion-icon size="small" color="tertiary" slot="start" name='pin'></ion-icon>
-              <ion-label no-padding>
-                {{lecture.Location}}
-              </ion-label>
-            </ion-item>
-            <ion-item *ngIf='lecture.Description !== ""' no-padding>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item-group>
+              <ion-item *ngIf='lecture.Start !== "" && lecture.End !== ""' no-padding>
+                <ion-icon size="small" color="tertiary" slot="start" name='time'></ion-icon>
+                <ion-label no-padding>
+                  {{lecture.Start | date:"HH:mm":"UTC"}} - {{lecture.End | date:"HH:mm":"UTC"}}
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf='lecture.Location !== "" && lecture.Location !== undefined' no-padding>
+                <ion-icon size="small" color="tertiary" slot="start" name='pin'></ion-icon>
+                <ion-label no-padding>
+                  {{lecture.Location}}
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf='lecture.Description !== ""' no-padding>
                 <ion-icon size="small" color="tertiary" slot="start" name='person'></ion-icon>
                 <ion-label no-padding>
                   {{lecture.Description}}
                 </ion-label>
               </ion-item>
-          </ion-item-group>
-        </ion-card-content>
-      </ion-card>
-    </div>
-
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" *ngIf="infiniteScrollEnabled">
-        <ion-infinite-scroll-content
-          loadingSpinner="bubbles"
-          loadingText="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+            </ion-item-group>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-virtual-scroll>
   </ion-item-group>
 
 </ion-content>

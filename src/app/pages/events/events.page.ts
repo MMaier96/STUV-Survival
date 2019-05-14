@@ -85,7 +85,11 @@ export class EventsPage implements OnInit {
   }
 
   isMultiDayEvent(event: CalendarEvent) {
-    return new Date(event.End).getDate > new Date(event.Start).getDate;
+    const startDate = new Date(event.Start);
+    startDate.setHours(0, 0, 0, 0);
+    const endDate = new Date(event.End);
+    endDate.setHours(0, 0, 0, 0);
+    return endDate > startDate;
   }
 
   openEventDetails(event: CalendarEvent): void {

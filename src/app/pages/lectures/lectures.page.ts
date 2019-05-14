@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from '../../core/http.service';
 import { CalendarEventPerDay } from '../../models/calendar-event-per-day';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Storage } from '@ionic/storage';
 import * as ColorHash from 'color-hash';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-lectures',
@@ -13,6 +14,8 @@ import * as ColorHash from 'color-hash';
 })
 
 export class LecturesPage implements OnInit {
+
+  @ViewChild(IonContent) content: IonContent;
 
   private previousEventButton = {
     title: 'Previous Events',
@@ -29,12 +32,8 @@ export class LecturesPage implements OnInit {
   courseTitle: String = null;
 
   loadedLectures: CalendarEventPerDay[] = null;
-  displayedLectures: CalendarEventPerDay[] = null;
   lectures: CalendarEventPerDay[] = null;
 
-  displayedDays = environment.displayedEventDays;
-
-  infiniteScrollEnabled = true;
 
   constructor(
     public _httpService: HttpService,
@@ -48,7 +47,7 @@ export class LecturesPage implements OnInit {
   }
 
   showAll() {
-    this.displayedLectures = this.loadedLectures;
+    this.lectures = this.loadedLectures;
   }
 
   getBorderForText(text: String): String {
@@ -63,36 +62,16 @@ export class LecturesPage implements OnInit {
     if (this.filterButton === this.previousEventButton) {
       this.showAll();
       this.filterButton = this.currentEventButton;
-      this.lectures = this.displayedLectures.slice(0, this.displayedDays);
-      this.infiniteScrollEnabled = true;
     } else if (this.filterButton === this.currentEventButton) {
       this.showFromToday();
       this.filterButton = this.previousEventButton;
-      this.lectures = this.displayedLectures.slice(0, this.displayedDays);
-      this.infiniteScrollEnabled = true;
     }
   }
 
   showFromToday() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    this.displayedLectures = this.loadedLectures.filter(e => e.Key >= today.getTime());
-  }
-
-  loadMore(infiniteScroll: any) {
-    this.displayedDays += environment.displayedEventDays;
-
-    if (this.displayedDays >= this.displayedLectures.length) {
-      this.lectures = this.displayedLectures;
-      this.infiniteScrollEnabled = false;
-    } else {
-      if (this.filterButton === this.previousEventButton) {
-        this.lectures = this.lectures.concat(
-          this.displayedLectures.slice(this.displayedDays - environment.displayedEventDays, this.displayedDays)
-        );
-      }
-      infiniteScroll.target.complete();
-    }
+    this.lectures = this.loadedLectures.filter(e => e.Key >= today.getTime());
   }
 
   loadLectures() {
@@ -104,7 +83,6 @@ export class LecturesPage implements OnInit {
         } else {
           this.loadedLectures = data;
           this.showFromToday();
-          this.lectures = this.displayedLectures.slice(0, this.displayedDays);
           console.log('Lectures loaded');
         }
       },
