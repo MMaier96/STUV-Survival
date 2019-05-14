@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -7,8 +7,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 
 import { Router } from '@angular/router';
-import { StorageService } from './core/storage.service';
-import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { environment } from '../environments/environment';
 import { HttpService } from './core/http.service';
 
@@ -63,7 +61,6 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     private httpService: HttpService,
-
     public storage: Storage
 
   ) {

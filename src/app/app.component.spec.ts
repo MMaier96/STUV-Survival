@@ -7,13 +7,26 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
+import { HttpService } from './core/http.service';
+import { CoreModule } from './core/core.module';
+import { Observable } from 'rxjs';
+import { CalendarEventPerDay } from './models/calendar-event-per-day';
+
+class MockHttpService {
+  getLecturesForCourseTitlePerDay(): Observable<CalendarEventPerDay> {
+    return Observable.create();
+  }
+  getStuvEventsPerDay(): Observable<CalendarEventPerDay> {
+    return Observable.create();
+  }
+}
 
 describe('AppComponent', () => {
 
   let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
 
   beforeEach(async(() => {
-    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
+    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleLightContent']);
     splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
     platformReadySpy = Promise.resolve();
     platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
@@ -21,12 +34,16 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [
+        CoreModule,
+        RouterTestingModule.withRoutes([])
+      ],
       providers: [
         { provide: StatusBar, useValue: statusBarSpy },
         { provide: SplashScreen, useValue: splashScreenSpy },
         { provide: Platform, useValue: platformSpy },
-      ],
-      imports: [ RouterTestingModule.withRoutes([])],
+        { provide: HttpService, useValue: new MockHttpService() }
+      ]
     }).compileComponents();
   }));
 
@@ -40,8 +57,7 @@ describe('AppComponent', () => {
     TestBed.createComponent(AppComponent);
     expect(platformSpy.ready).toHaveBeenCalled();
     await platformReadySpy;
-    expect(statusBarSpy.styleDefault).toHaveBeenCalled();
-    expect(splashScreenSpy.hide).toHaveBeenCalled();
+    expect(statusBarSpy.styleLightContent).toHaveBeenCalled();
   });
 
   it('should have menu labels', async () => {
@@ -49,7 +65,7 @@ describe('AppComponent', () => {
     await fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-label');
-    expect(menuItems.length).toEqual(2);
+    expect(menuItems.length).toEqual(7);
     expect(menuItems[0].textContent).toContain('Lectures');
     expect(menuItems[1].textContent).toContain('Events');
   });
@@ -59,9 +75,10 @@ describe('AppComponent', () => {
     await fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-item');
-    expect(menuItems.length).toEqual(2);
+    expect(menuItems.length).toEqual(7);
     expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/lectures');
     expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/events');
+    expect(menuItems[2].getAttribute('ng-reflect-router-link')).toEqual('/cantine');
   });
 
 });

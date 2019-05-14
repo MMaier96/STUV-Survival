@@ -30,7 +30,6 @@ export class EventsPage implements OnInit {
   events: CalendarEventPerDay[] = null;
 
   constructor(
-    public _httpService: HttpService,
     public storage: Storage,
     private router: Router
   ) {

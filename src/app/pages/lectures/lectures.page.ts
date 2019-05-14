@@ -36,7 +36,6 @@ export class LecturesPage implements OnInit {
 
 
   constructor(
-    public _httpService: HttpService,
     public storage: Storage,
     private router: Router
   ) {
