@@ -36,10 +36,10 @@
               <ion-item *ngIf='event.Start !== "" && event.End !== ""' no-padding>
                 <ion-icon color="tertiary" slot="start" name='time'></ion-icon>
                 <ion-label *ngIf="isMultiDayEvent(event)">
-                  {{event.Start | date:"E dd.MM HH:mm":"UTC"}} - {{event.End | date:"E dd.MM HH:mm":"UTC"}}
+                  {{event.Start | date:"E dd.MM HH:mm":"Berlin"}} - {{event.End | date:"E dd.MM HH:mm":"Berlin"}}
                 </ion-label>
                 <ion-label *ngIf="!isMultiDayEvent(event)">
-                  {{event.Start | date:"HH:mm":"UTC"}} - {{event.End | date:"HH:mm":"UTC"}}
+                  {{event.Start | date:"HH:mm":"Berlin"}} - {{event.End | date:"HH:mm":"Berlin"}}
                 </ion-label>
               </ion-item>
               <ion-item *ngIf='event.Location !== ""' no-padding>
