@@ -3,7 +3,6 @@ import { HttpService } from '../../../core/http.service';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
-import { StorageService } from '../../../core/storage.service';
 import { Utils } from '../../../helpers/utils';
 
 @Component({

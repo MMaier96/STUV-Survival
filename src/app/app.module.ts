@@ -16,7 +16,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
-import { StorageService } from './core/storage.service';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @NgModule({
@@ -39,7 +38,6 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
     SplashScreen,
     HttpService,
     BackgroundMode,
-    StorageService,
     Utils,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -27,11 +27,11 @@ export class AppComponent {
       url: '/events',
       icon: 'calendar'
     },
-    {
-      title: 'Cantine',
-      url: '/cantine',
-      icon: 'restaurant'
-    }
+    // {
+    //   title: 'Cantine',
+    //   url: '/cantine',
+    //   icon: 'restaurant'
+    // }
   ];
 
   public externalPages = [
